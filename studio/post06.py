@@ -199,7 +199,7 @@ def slide5():
 def slide6():
     tips = [
         ("cal", "Tap by the forecast", "Start when thawing days follow freezing nights, not on a set date."),
-        ("leaf", "Red and silver maples count too", "Ohio State is testing red-silver hybrids as a backup."),
+        ("leaf", "Red and silver maples count too", "Ohio State has tested red-silver hybrids as a backup."),
         ("heart", "Keep your trees healthy", "Drought and other stress hit trees hardest."),
     ]
     rows = "".join(row(circle_badge(small_icon(k, CR), RED, size=100, ring="#A82A1A"), t, n, M, 42, 30) for k, t, n in tips)
