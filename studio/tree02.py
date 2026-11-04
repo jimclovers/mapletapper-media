@@ -45,7 +45,7 @@ def slide1():
         + footer_row(C["cream"], swipe(C["cream"]))
         + "</div>"
     )
-    return root(C["maroon"], photo + top + stamp + ai_tag + bottom, C["cream"]), "Tree ID: red maple"
+    return root(C["maroon"], photo + top + stamp + bottom, C["cream"]), "Tree ID: red maple"
 
 
 def slide2():
@@ -54,7 +54,7 @@ def slide2():
         f'<img src="@@IMG_leaves@@" alt="Three red maple leaves on slate, turning from green to scarlet" '
         f'style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; display: block">'
         f'<span style="position: absolute; left: 22px; bottom: 20px; background: {C["cream"]}; color: {C["maroon"]}; border-radius: 999px; '
-        f'padding: 9px 18px 7px; font-family: {TYPE}; font-size: 22px; letter-spacing: 0.05em; text-transform: uppercase">Green to scarlet in fall · AI illustration</span></div>'
+        f'padding: 9px 18px 7px; font-family: {TYPE}; font-size: 22px; letter-spacing: 0.05em; text-transform: uppercase">Green to scarlet in fall</span></div>'
     )
     clues = (
         f'<div data-chk="clues" style="display: flex; flex-direction: column; gap: 30px; margin-top: 8px">'
@@ -98,9 +98,7 @@ def slide4():
         f'<div style="position: relative; flex: none">'
         f'<img src="@@IMG_leaf@@" alt="A scarlet red maple leaf (AI illustration)" style="width: 330px; height: 330px; border-radius: 50%; object-fit: cover; '
         f'border: 10px solid {C["cream"]}; flex: none; display: block">'
-        f'<span data-chk="aitag" style="position: absolute; left: 50%; bottom: -12px; transform: translateX(-50%); white-space: nowrap; '
-        f'background: {C["cream"]}; color: {C["maroon"]}; border-radius: 999px; padding: 7px 16px 5px; font-family: {TYPE}; font-size: 19px; '
-        f'letter-spacing: 0.05em; text-transform: uppercase">AI illustration</span></div>'
+        f'</div>'
         f'<div style="display: flex; flex-direction: column; gap: 14px">'
         f'<div style="font-family: {DISPLAY}; font-weight: 800; font-size: 60px; line-height: 1.02; color: {C["cream"]}">Rhode Island’s state tree</div>'
         f'<div style="font-family: {DISPLAY}; font-weight: 600; font-size: 35px; line-height: 1.25; color: {C["gold"]}">Chosen in 1964. Red maple grows across most of the eastern U.S.</div></div></div>'

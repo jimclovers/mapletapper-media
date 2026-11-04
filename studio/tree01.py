@@ -57,7 +57,7 @@ def slide1():
         + footer_row(C["cream"], swipe(C["cream"]))
         + "</div>"
     )
-    return root(C["maroon"], photo + top + stamp + ai_tag + bottom, C["cream"]), "Tree ID: silver maple"
+    return root(C["maroon"], photo + top + stamp + bottom, C["cream"]), "Tree ID: silver maple"
 
 
 def clue(badge, main, note):
@@ -74,7 +74,7 @@ def slide2():
         f'<img src="@@IMG_leaves@@" alt="Three silver maple leaves on a wooden bench, turning from green to yellow" '
         f'style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 52%; display: block">'
         f'<span style="position: absolute; left: 22px; bottom: 20px; background: {C["cream"]}; color: {C["maroon"]}; border-radius: 999px; '
-        f'padding: 9px 18px 7px; font-family: {TYPE}; font-size: 22px; letter-spacing: 0.05em; text-transform: uppercase">Green to gold in fall · AI illustration</span></div>'
+        f'padding: 9px 18px 7px; font-family: {TYPE}; font-size: 22px; letter-spacing: 0.05em; text-transform: uppercase">Green to gold in fall</span></div>'
     )
     clues = (
         f'<div data-chk="clues" style="display: flex; flex-direction: column; gap: 30px; margin-top: 8px">'
