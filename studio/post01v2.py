@@ -128,7 +128,7 @@ def slide4():
         f'display: flex; flex-direction: column; justify-content: center; gap: 24px">'
         + check_item("At least 12 in. across", "About 38 in. around the trunk")
         + check_item("A full canopy of leaves", "More leaves, sweeter sap")
-        + check_item("No broken branches")
+        + check_item("No big broken limbs or rot", "A missing twig or two is fine")
         + check_item("Never sprayed with pesticides or herbicides")
         + "</div>"
     )
