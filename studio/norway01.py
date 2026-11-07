@@ -25,7 +25,7 @@ from jugs import sap_card  # noqa: E402
 
 PHOTO_DIR = os.path.join(ROOT, "photos")
 ASSETS = {"tree": "jim/norway_tree_real.jpg", "leaf": "jim/norway_leaf_real.jpg", "bark": "jim/norway_bark_real.jpg",
-          "yellow": "jim/norway_yellow_real.jpg"}
+          "yellow": "jim/norway_yellow_real.jpg", "logo": "../assets/logo.png"}
 PHOTO_H = 860
 
 
@@ -197,7 +197,7 @@ def slide5():
         + photo
         + facts
         + '<div style="flex-grow: 1"></div>'
-        + teaser
+        + f'<div style="display: flex; align-items: center; gap: 28px">' + teaser.replace('display: flex; \'\n        f\'flex-direction', 'flex: 1 1 0; display: flex; \'\n        f\'flex-direction') + f'<img data-chk="logo" src="@@IMG_logo@@" alt="MapleTapper logo" style="width: 200px; flex: none; display: block"></div>'
         + footer_row(C["maroon"], f'<span style="font-family: {DISPLAY}; font-weight: 700; font-size: 30px">mapletapper.com</span>')
     )
     return root(C["cream"], column(inner, gap=28), C["maroon"]), "Good to know: Norway maple"
