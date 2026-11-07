@@ -197,8 +197,8 @@ def slide5():
         + photo
         + facts
         + '<div style="flex-grow: 1"></div>'
-        + f'<div style="display: flex; align-items: center; gap: 28px">' + teaser.replace('display: flex; \'\n        f\'flex-direction', 'flex: 1 1 0; display: flex; \'\n        f\'flex-direction') + f'<img data-chk="logo" src="@@IMG_logo@@" alt="MapleTapper logo" style="width: 200px; flex: none; display: block"></div>'
-        + footer_row(C["maroon"], f'<span style="font-family: {DISPLAY}; font-weight: 700; font-size: 30px">mapletapper.com</span>')
+        + f'<div style="display: flex; align-items: center; gap: 28px">' + teaser.replace('display: flex; \'\n        f\'flex-direction', 'flex: 1 1 0; display: flex; \'\n        f\'flex-direction') + f'<img data-chk="logo" src="@@IMG_logo@@" alt="MapleTapper logo, www.mapletapper.com" style="width: 210px; flex: none; display: block"></div>'
+        + footer_row(C["maroon"], '<span></span>')
     )
     return root(C["cream"], column(inner, gap=28), C["maroon"]), "Good to know: Norway maple"
 

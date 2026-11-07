@@ -110,8 +110,8 @@ def pop_card():
             f'<div style="font-family: {TYPE}; font-size: 44px; letter-spacing: 0.08em; text-transform: uppercase; color: {C["maroon"]}">Get ready!</div>'
             f'<div style="font-family: {DISPLAY}; font-weight: 800; font-size: 330px; line-height: 0.9; letter-spacing: -0.04em; color: {C["maroon"]}; margin-top: 20px">16</div>'
             f'<div style="font-family: {DISPLAY}; font-weight: 800; font-size: 104px; line-height: 0.95; letter-spacing: -0.02em; color: {C["maroon"]}">weeks to<br><span style="color: {C["red"]}">sap season!</span></div>'
-            f'<div style="margin: 50px auto 0; width: 340px; height: 290px; border-radius: 48px; background: {C["cream"]}; display: flex; align-items: center; justify-content: center">'
-            f'<img src="data:image/png;base64,{base64.b64encode(open("/home/claude/mt/studio/assets/logo.png","rb").read()).decode()}" style="width: 290px; display: block"></div></div>')
+            f'<div style="margin: 50px auto 0; width: 380px; height: 380px; border-radius: 48px; background: {C["cream"]}; display: flex; align-items: center; justify-content: center">'
+            f'<img src="data:image/png;base64,{base64.b64encode(open("/home/claude/mt/studio/assets/logo.png","rb").read()).decode()}" style="width: 320px; display: block"></div></div>')
     return page(body, "transparent")
 
 
