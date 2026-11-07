@@ -10,7 +10,7 @@ Facts (2+ sources each, rewritten):
 - Native to Europe, brought to U.S. mid-1700s (1756): USFS/invasive.org, Columbia.
 - Invasive: dense shade + heavy seeding crowd out natives incl. sugar maple: Purdue, UConn, USDA Forest Service.
 - Tapping: Ohio State F-36 (many report sap about as sweet as sugar maple); Utah State/HortTechnology 2024
-  (2.2-2.8% sugar, 7.5-9.3 L sap per tree per season); UNH thesis (tapping guidelines similar to sugar maple).
+  (2.2-2.8% sugar, 7.5-9.3 L sap per tree per season; USU thesis: ~35 gal sap per gal syrup, matches Rule of 86); UNH thesis (tapping guidelines similar to sugar maple).
 """
 import json
 import os
@@ -21,6 +21,7 @@ from build import (C, DISPLAY, TYPE, W, H, ROOT, kicker_row, footer_row, swipe, 
                    dc_html, preview_html)
 from post02 import pill, with_images  # noqa: E402
 from tree01 import clue  # noqa: E402
+from jugs import sap_card  # noqa: E402
 
 PHOTO_DIR = os.path.join(ROOT, "photos")
 ASSETS = {"tree": "jim/norway_tree_real.jpg", "leaf": "jim/norway_leaf_real.jpg", "bark": "jim/norway_bark_real.jpg",
@@ -139,29 +140,37 @@ def point(icon, main, note):
     return (
         f'<div style="display: flex; gap: 26px; align-items: flex-start">'
         f'<div style="font-size: 52px; line-height: 1; flex: none; width: 64px; text-align: center">{icon}</div>'
-        f'<div style="font-family: {DISPLAY}; font-weight: 800; font-size: 46px; line-height: 1.08; color: {C["cream"]}">{main}'
-        f'<div style="font-weight: 600; font-size: 32px; line-height: 1.28; margin-top: 8px; color: {C["gold"]}">{note}</div></div></div>'
+        f'<div style="font-family: {DISPLAY}; font-weight: 800; font-size: 40px; line-height: 1.08; color: {C["cream"]}">{main}'
+        f'<div style="font-weight: 600; font-size: 29px; line-height: 1.25; margin-top: 6px; color: {C["gold"]}">{note}</div></div></div>'
     )
 
 
 def slide4():
+    cards = (
+        f'<div data-chk="cards" style="display: flex; flex-direction: column; gap: 20px">'
+        + sap_card("Norway maple", "2.2–2.8%", 35, highlight=True, size=26, chk="card1")
+        + sap_card("Sugar maple", "2–2.5%", 40, highlight=False, size=26, chk="card2")
+        + "</div>"
+    )
+    src = (f'<div data-chk="src" style="font-family: {TYPE}; font-size: 23px; line-height: 1.35; letter-spacing: 0.02em; color: {C["gold"]}">'
+           f'Norway numbers from a Utah State University study. Every tree is different.</div>')
     pts = (
-        f'<div data-chk="points" style="display: flex; flex-direction: column; gap: 40px">'
-        + point("🍁", "Sweet enough", "Ohio State says many tappers find its sap about as sweet as sugar maple. A Utah State study measured 2.2–2.8% sugar.")
-        + point("💧", "But a slow drip", "In that study, each tree gave only about 2 to 2½ gallons of sap all season.")
-        + point("📏", "Same rules", "At least 12 inches across at 4½ feet up, a 5/16″ tree-saver spout and food-grade gear.")
-        + point("🏘️", "Street tree? Ask first", "Trees by the curb usually belong to the town.")
+        f'<div data-chk="points" style="display: flex; flex-direction: column; gap: 18px">'
+        + point("💧", "The catch: a slow drip", "About 2 to 2½ gallons of sap per tree all season in that study.")
+        + point("📏", "Same rules", "12+ inches across, a 5/16″ spout. Street tree? Ask your town first.")
         + "</div>"
     )
     inner = (
         kicker_row("Can you tap it?", "4 / 5", C["cream"])
-        + headline("Yes, you can!", 112, C["cream"])
+        + headline("Yes! Almost as<br>sweet as sugar maple.", 66, C["cream"])
+        + cards
+        + src
         + '<div style="flex-grow: 1"></div>'
         + pts
         + '<div style="flex-grow: 1"></div>'
         + footer_row(C["cream"], swipe(C["cream"]))
     )
-    return root(C["maroon"], column(inner, gap=30), C["cream"]), "Can you tap a Norway maple?"
+    return root(C["maroon"], column(inner, pad="60px 72px 48px", gap=18), C["cream"]), "Can you tap a Norway maple?"
 
 
 def slide5():
