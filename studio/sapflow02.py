@@ -30,6 +30,27 @@ def arrow(x, y, up, color, size=46):
             f'L{x + 13} {y + d * (size / 2 - 15)}" fill="none" stroke="{color}" style="stroke-width:8;stroke-linecap:round;stroke-linejoin:round"></path>')
 
 
+def santa(p=715):
+    R, Wt = '#C8321F', '#FFFFFF'
+    return (f'<ellipse cx="{p + 45}" cy="868" rx="90" ry="10" fill="#000" opacity=".08"></ellipse>'
+            f'<rect x="{p + 18}" y="770" width="30" height="92" rx="10" fill="{R}"></rect><rect x="{p + 52}" y="770" width="30" height="92" rx="10" fill="#B02A19"></rect>'
+            f'<path d="M{p + 8} 846 h46 v28 h-54 z M{p + 48} 846 h46 v28 h-50 z" fill="#1C1C1C"></path>'
+            f'<path d="M{p - 6} 640 Q{p + 48} 610 {p + 102} 640 L{p + 112} 790 L{p - 16} 790 Z" fill="{R}"></path>'
+            f'<path d="M{p + 48} 640 L{p + 48} 790" stroke="{Wt}" style="stroke-width:14"></path><rect x="{p - 16}" y="778" width="128" height="16" rx="6" fill="{Wt}"></rect>'
+            f'<rect x="{p - 12}" y="712" width="120" height="20" fill="#1C1C1C"></rect><rect x="{p + 36}" y="708" width="26" height="28" rx="3" fill="#F4B63F"></rect>'
+            f'<path d="M{p + 6} 660 Q{p - 34} 668 {p - 50} 690" fill="none" stroke="{R}" style="stroke-width:28;stroke-linecap:round"></path>'
+            f'<circle cx="{p - 52}" cy="692" r="13" fill="#1C1C1C"></circle>'
+            f'<circle cx="{p + 48}" cy="598" r="32" fill="#F2C4A0"></circle>'
+            f'<path d="M{p + 14} 600 Q{p + 10} 672 {p + 48} 684 Q{p + 86} 672 {p + 82} 600 Q{p + 48} 622 {p + 14} 600 Z" fill="{Wt}"></path>'
+            f'<path d="M{p + 14} 584 Q{p + 40} 520 {p + 108} 548 L{p + 82} 584 Z" fill="{R}"></path><circle cx="{p + 110}" cy="550" r="11" fill="{Wt}"></circle>'
+            f'<rect x="{p + 10}" y="578" width="76" height="16" rx="8" fill="{Wt}"></rect>'
+            f'<circle cx="{p + 36}" cy="602" r="3.5" fill="#333"></circle><circle cx="{p + 60}" cy="602" r="3.5" fill="#333"></circle>'
+            f'<circle cx="{p + 48}" cy="612" r="6" fill="#E59A8A"></circle>')
+
+
+FIGURE = 'person'
+
+
 def scene_svg():
     s = []
     s.append(f'<rect x="0" y="0" width="540" height="{SH}" fill="{NAVY}"></rect>')
@@ -74,21 +95,25 @@ def scene_svg():
     s.append(f'<path d="M612 626 L606 696 L668 696 L662 626 Z" fill="#B9C3CC" stroke="#7D8A96" style="stroke-width:3"></path>')
     s.append(f'<path d="M608 626 L666 626" stroke="#7D8A96" style="stroke-width:5"></path>')
     s.append(f'<path d="M624 616 q4 8 0 12 q-4 -4 0 -12" fill="#7FC0EC"></path>')
-    # person (flat drawing) checking the bucket: winter coat, knit hat, boots
-    p = 715
-    s.append(f'<ellipse cx="{p + 45}" cy="868" rx="85" ry="10" fill="#000" opacity=".08"></ellipse>')
-    s.append(f'<rect x="{p + 20}" y="760" width="26" height="100" rx="10" fill="#2E3A4E"></rect>')
-    s.append(f'<rect x="{p + 52}" y="760" width="26" height="100" rx="10" fill="#26303F"></rect>')
-    s.append(f'<path d="M{p + 12} 860 h40 v14 h-46 z M{p + 48} 860 h40 v14 h-44 z" fill="#3B2A1E"></path>')
-    s.append(f'<path d="M{p + 8} 640 Q{p + 48} 618 {p + 90} 640 L{p + 96} 775 L{p + 2} 775 Z" fill="{RED}"></path>')
-    s.append(f'<path d="M{p + 48} 640 L{p + 48} 775" stroke="#9E2617" style="stroke-width:3"></path>')
-    s.append(f'<path d="M{p + 14} 660 Q{p - 30} 668 {p - 50} 690" fill="none" stroke="{RED}" style="stroke-width:24;stroke-linecap:round"></path>')
-    s.append(f'<circle cx="{p - 52}" cy="692" r="12" fill="#3B2A1E"></circle>')
-    s.append(f'<circle cx="{p + 48}" cy="602" r="32" fill="#E8B58F"></circle>')
-    s.append(f'<path d="M{p + 15} 598 Q{p + 48} 545 {p + 81} 598 Z" fill="{GOLD}"></path>')
-    s.append(f'<rect x="{p + 13}" y="590" width="70" height="14" rx="6" fill="{M}"></rect>')
-    s.append(f'<circle cx="{p + 48}" cy="560" r="9" fill="{M}"></circle>')
-    s.append(f'<path d="M{p + 18} 618 q30 18 60 0" fill="none" stroke="{GOLD}" style="stroke-width:12"></path>')
+    if FIGURE == 'santa':
+        s.append(santa())
+    else:
+        # person (flat drawing) checking the bucket: winter coat, knit hat, boots
+        p = 715
+        s.append(f'<ellipse cx="{p + 45}" cy="868" rx="85" ry="10" fill="#000" opacity=".08"></ellipse>')
+        s.append(f'<rect x="{p + 20}" y="760" width="26" height="100" rx="10" fill="#2E3A4E"></rect>')
+        s.append(f'<rect x="{p + 52}" y="760" width="26" height="100" rx="10" fill="#26303F"></rect>')
+        s.append(f'<path d="M{p + 12} 860 h40 v14 h-46 z M{p + 48} 860 h40 v14 h-44 z" fill="#3B2A1E"></path>')
+        s.append(f'<path d="M{p + 8} 640 Q{p + 48} 618 {p + 90} 640 L{p + 96} 775 L{p + 2} 775 Z" fill="{RED}"></path>')
+        s.append(f'<path d="M{p + 48} 640 L{p + 48} 775" stroke="#9E2617" style="stroke-width:3"></path>')
+        s.append(f'<path d="M{p + 14} 660 Q{p - 30} 668 {p - 50} 690" fill="none" stroke="{RED}" style="stroke-width:24;stroke-linecap:round"></path>')
+        s.append(f'<circle cx="{p - 52}" cy="692" r="12" fill="#3B2A1E"></circle>')
+        s.append(f'<circle cx="{p + 48}" cy="602" r="32" fill="#E8B58F"></circle>')
+        s.append(f'<path d="M{p + 15} 598 Q{p + 48} 545 {p + 81} 598 Z" fill="{GOLD}"></path>')
+        s.append(f'<rect x="{p + 13}" y="590" width="70" height="14" rx="6" fill="{M}"></rect>')
+        s.append(f'<circle cx="{p + 48}" cy="560" r="9" fill="{M}"></circle>')
+        s.append(f'<path d="M{p + 18} 618 q30 18 60 0" fill="none" stroke="{GOLD}" style="stroke-width:12"></path>')
+
     # center split line
     s.append(f'<path d="M540 0 L540 {SH}" stroke="#FFFFFF" style="stroke-width:3;opacity:.55" stroke-dasharray="10 10"></path>')
     return f'<svg aria-hidden="true" width="{W}" height="{SH}" viewBox="0 0 {W} {SH}" style="position: absolute; left: 0; top: {SY}px">{"".join(s)}</svg>'
@@ -110,29 +135,29 @@ def label(x, y, text, color, size=26, align="left", w=380):
 def step(n, text, color, numbg, numfg):
     return (f'<div style="display: flex; gap: 12px; align-items: flex-start"><span style="flex: none; width: 40px; height: 40px; border-radius: 50%; '
             f'background: {numbg}; color: {numfg}; display: flex; align-items: center; justify-content: center; font-family: {DISPLAY}; font-weight: 800; '
-            f'font-size: 26px; margin-top: 2px">{n}</span><span style="font-family: {DISPLAY}; font-weight: 600; font-size: 27px; line-height: 1.27; '
+            f'font-size: 26px; margin-top: 2px">{n}</span><span style="font-family: {DISPLAY}; font-weight: 600; font-size: 25px; line-height: 1.26; '
             f'color: {color}">{text}</span></div>')
 
 
 def slide():
     head = (f'<div data-chk="head" style="position: absolute; left: 48px; right: 48px; top: 40px">'
             f'<div style="display: flex; justify-content: space-between; font-family: {TYPE}; font-size: 25px; letter-spacing: 0.06em; '
-            f'text-transform: uppercase; color: {M}"><span>Sugarmaker’s Almanac · How it works</span><span>@mapletapper</span></div>'
+            f'text-transform: uppercase; color: {M}"><span>{"Sugarmaker’s Almanac · Holiday edition" if FIGURE == "santa" else "Sugarmaker’s Almanac · How it works"}</span><span>@mapletapper</span></div>'
             f'<h1 style="margin: 14px 0 0; font-family: {DISPLAY}; font-weight: 800; font-size: 86px; line-height: 0.95; letter-spacing: -0.025em; color: {M}">'
             f'What makes <span style="color: {RED}">sap run?</span></h1>'
             f'<div style="margin-top: 12px; font-family: {DISPLAY}; font-weight: 700; font-size: 30px; color: {M}">Freezing nights + thawing days. Here’s what happens inside the tree.</div></div>')
-    night_head = (f'<div data-chk="nh" style="position: absolute; left: 40px; top: {SY + 26}px; display: flex; align-items: center; gap: 12px">{thermo(False)}'
+    night_head = (f'<div data-chk="nh" style="position: absolute; left: 40px; top: {SY + 22}px; display: flex; align-items: center; gap: 12px">{thermo(False)}'
                   f'<div><div style="font-family: {DISPLAY}; font-weight: 800; font-size: 50px; line-height: 1; color: #FFFFFF">NIGHT</div>'
                   f'<div style="font-family: {TYPE}; font-size: 25px; color: #CFE8FA; margin-top: 4px">In the 20s °F</div></div></div>')
     day_head = (f'<div data-chk="dh" style="position: absolute; right: 40px; top: {SY + 26}px; display: flex; align-items: center; gap: 12px">'
                 f'<div style="text-align: right"><div style="font-family: {DISPLAY}; font-weight: 800; font-size: 50px; line-height: 1; color: {NAVY}">DAY</div>'
                 f'<div style="font-family: {TYPE}; font-size: 25px; color: {NAVY}; margin-top: 4px">In the 40s °F</div></div>{thermo(True)}</div>')
-    left = (f'<div data-chk="left" style="position: absolute; left: 34px; top: {SY + 400}px; width: 400px; display: flex; flex-direction: column; gap: 22px">'
-            + step(1, "As the tree freezes, tiny air pockets in the wood get squeezed by ice. That makes suction.", "#FFFFFF", "#CFE8FA", NAVY)
-            + step(2, "The suction pulls water up from the roots and refills the tree, like a sponge.", "#FFFFFF", "#CFE8FA", NAVY)
+    left = (f'<div data-chk="left" style="position: absolute; left: 34px; top: {SY + 128}px; width: 410px; display: flex; flex-direction: column; gap: 18px; background: rgba(27,47,80,0.9); border-radius: 22px; padding: 18px 20px; box-sizing: border-box">'
+            + step(1, "<b>Freeze.</b> As the wood freezes, sap is drawn into tiny air-filled fibers in the wood and turns to ice on their walls. The ice squeezes the air trapped inside, like pressing down a spring.", "#FFFFFF", "#CFE8FA", NAVY)
+            + step(2, "<b>Refill.</b> That freezing creates suction. It pulls water up from the roots through the sapwood, the living outer layer of the trunk, and recharges the tree for the next run.", "#FFFFFF", "#CFE8FA", NAVY)
             + "</div>")
-    right = (f'<div data-chk="right" style="position: absolute; right: 30px; top: {SY + 140}px; width: 400px; display: flex; flex-direction: column; gap: 18px; background: rgba(255,255,255,0.88); border-radius: 22px; padding: 18px 20px; box-sizing: border-box">'
-             + step(3, "As the tree warms up, the ice melts and the squeezed air pushes back. With help from gravity, sap flows down and out the spout.", NAVY, NAVY, "#FFFFFF")
+    right = (f'<div data-chk="right" style="position: absolute; right: 30px; top: {SY + 128}px; width: 410px; display: flex; flex-direction: column; gap: 18px; background: rgba(255,255,255,0.88); border-radius: 22px; padding: 18px 20px; box-sizing: border-box">'
+             + step(3, "<b>Thaw.</b> Once the wood warms above 32°F, the ice melts and the squeezed air springs back. It pushes the sap out of the fibers and builds pressure in the tree. That pressure, plus gravity, sends sap down and out the spout.", NAVY, NAVY, "#FFFFFF")
              + "</div>")
     tags = (label(318, SY + 905, "Roots", NAVY, 24, "left", 120)
             + label(132, SY + 838, "Water from the soil", NAVY, 22, "left", 200)
@@ -146,7 +171,7 @@ def slide():
     bottom = (f'<div data-chk="bottom" style="position: absolute; left: 0; top: {SY + SH}px; width: {W}px; height: {H - SY - SH}px; background: {M}; '
               f'box-sizing: border-box; padding: 18px 36px 14px 48px; display: flex; align-items: center; gap: 24px">'
               f'<div style="flex: 1 1 0; color: {CR}"><div style="font-family: {DISPLAY}; font-weight: 800; font-size: 36px; line-height: 1.1">'
-              f'Freeze, thaw, repeat. <span style="color: {GOLD}">The sap keeps running.</span></div>'
+              + ('Freeze, thaw, repeat. <span style="color: {GOLD}">Santa’s bucket is ready.</span>'.replace('{GOLD}', GOLD) if FIGURE == 'santa' else f'Freeze, thaw, repeat. <span style="color: {GOLD}">The sap keeps running.</span>') + '</div>'
               f'<div style="font-family: {TYPE}; font-size: 17px; margin-top: 8px; opacity: 0.85">Sources: Massachusetts Maple Producers Assn.; UVM Proctor Maple '
               f'Research Center; UMaine and SDSU Extension</div></div>'
               f'<div style="flex: none; background: {CR}; border-radius: 20px; padding: 6px 10px"><img src="{LOGO}" alt="MapleTapper logo, www.mapletapper.com" '
@@ -157,6 +182,9 @@ def slide():
 
 if __name__ == "__main__":
     os.makedirs(os.path.join(ROOT, "preview"), exist_ok=True)
+    name = "SapFlow02"
+    if "--santa" in sys.argv:
+        FIGURE, name = "santa", "SapFlow02-Santa"
     markup, title = slide()
-    open(os.path.join(ROOT, "preview", "SapFlow02.html"), "w").write(preview_html(title, markup))
+    open(os.path.join(ROOT, "preview", name + ".html"), "w").write(preview_html(title, markup))
     print("built")
