@@ -9,3 +9,5 @@ The scripts that make the MapleTapper Instagram slides and Reels, kept here so a
 - `tools/meta_audit.py`: checks that no photo or video carries hidden location/date data before posting.
 
 House rules every post follows: facts checked against 2+ sources and rewritten in our own words; main house and license plates blurred, no location data; AI pictures carry no AI label of any kind: no tag on the slide, no caption note, no Instagram label (isAiGenerated false). Jim's call, Nov 4 2026: do only what Meta requires, and Meta only requires its label for photorealistic AI video or realistic AI audio (turn it on if we ever post those). Never call an AI picture a real photo; never AI people; brand colors maroon #7A1E1A, red #C8321F, gold #F4B63F, cream #FFF5DE; fonts Bricolage Grotesque + Special Elite.
+
+Logo rule (Jim, Nov 7 2026): every carousel and Reel shows the MapleTapper logo (studio/assets/logo.png) at least once, on the last slide / end card. The logo is dark brown on transparent, so place it on cream or gold, or on a cream badge over maroon. Never over a photo.
