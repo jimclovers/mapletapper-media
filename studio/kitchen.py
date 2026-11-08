@@ -130,7 +130,7 @@ def footer():
 
 
 R = dict(
-    no="No. 01", title="Maple-Glazed Carrots", kicker="A weeknight side dish", time="20 minutes", serves="Serves 4",
+    no="No. 01", art="k01_carrots.jpg", title="Maple-Glazed Carrots", kicker="A weeknight side dish", time="20 minutes", serves="Serves 4",
     blurb="Sweet, glossy and done in one pan. Real maple syrup gives carrots a buttery glaze that kids actually eat.",
     ingredients=[("1 lb", "carrots, peeled and sliced into coins"), ("1 tbsp", "butter"), ("2 tbsp", "pure maple syrup"),
                  ("¼ tsp", "salt, plus a pinch for the water"), ("", "black pepper, to taste"), ("", "fresh thyme or parsley (optional)")],
@@ -144,9 +144,10 @@ R = dict(
 
 
 def slide1(r):
-    art = svg(912, 640, carrots_dish(470, 330, 1.0) + syrup_bottle(820, 190, 0.9) + leaf(120, 110, 1.3, "#C8321F", -18) + leaf(205, 70, .8, AMBER, 25))
+    art = (f'<img src="file://{ROOT}/photos/ai/{r["art"]}" alt="" style="width:1000px;height:563px;object-fit:cover;display:block;'
+           f'-webkit-mask-image:radial-gradient(ellipse 72% 70% at 50% 50%, #000 62%, transparent 100%);mask-image:radial-gradient(ellipse 72% 70% at 50% 50%, #000 62%, transparent 100%)">')
     inner = (masthead(r["no"], r["kicker"])
-             + f'<div style="margin:22px -20px 0">{art}</div>'
+             + f'<div style="margin:24px -44px 0">{art}</div>'
              + f'<h1 data-chk="title" style="margin:6px 0 0;font-weight:700;font-size:112px;line-height:.92;letter-spacing:-.01em;color:{BERRY}">{r["title"]}</h1>'
              + f'<div style="display:flex;gap:28px;margin-top:20px;font-family:{HAND};font-size:44px;color:{RUST}"><span>⏱ {r["time"]}</span><span>·</span><span>{r["serves"]}</span></div>'
              + f'<p style="margin:16px 0 0;font-size:38px;line-height:1.25;font-weight:500">{r["blurb"]}</p>'
