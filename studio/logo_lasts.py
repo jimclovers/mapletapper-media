@@ -43,15 +43,26 @@ JOBS = {
 }
 
 
+# Jim, Nov 8: the slide box asks for a direct action instead of a "Next up" teaser.
+CTA = {
+    "post04": ("Your turn · guess below", "How many pencils make 12 inches?"),
+    "post05": ("Your turn · comment below", "Does your maple pass the check?"),
+    "post06": ("Your turn · comment below", "Sap running earlier where you live?"),
+    "post07": ("Your turn · comment below", "How big is your biggest tree?"),
+    "post08": ("Your turn · comment below", "Taste test! Which syrup won?"),
+    "post09": ("Your turn · comment below", "Which find was hardest?"),
+}
+
+
 def build(name):
     fn_name, imgs = JOBS[name]
     mod = importlib.import_module(name)
     orig_teaser = getattr(mod, "teaser", None)
     if orig_teaser:
         def teaser(when, what, *a, **k):
-            if name == "post04":
-                what = "Tree ID bonus: Norway maple"
-            return with_logo(orig_teaser(when, what, *a, **k), badge=(name == "post05"),
+            label, what = CTA[name]
+            html = re.sub(r'>Next up[^<]*<', '>' + label + '<', orig_teaser("", what, *a, **k), count=1)
+            return with_logo(html, badge=(name == "post05"),
                              width=170 if name == "post04" else (180 if name == "post05" else 200))
         mod.teaser = teaser
     if hasattr(mod, "site_footer"):

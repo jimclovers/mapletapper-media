@@ -189,8 +189,8 @@ def slide5():
     teaser = (
         f'<div data-chk="teaser" style="background: {C["maroon"]}; color: {C["cream"]}; border-radius: 32px; padding: 26px 34px; display: flex; '
         f'flex-direction: column; gap: 8px">'
-        f'<div style="font-family: {TYPE}; font-size: 24px; letter-spacing: 0.06em; text-transform: uppercase; color: {C["gold"]}">Next up</div>'
-        f'<div style="font-family: {DISPLAY}; font-weight: 800; font-size: 42px; line-height: 1.04">Which maples should you skip?</div></div>'
+        f'<div style="font-family: {TYPE}; font-size: 24px; letter-spacing: 0.06em; text-transform: uppercase; color: {C["gold"]}">Your turn · comment below</div>'
+        f'<div style="font-family: {DISPLAY}; font-weight: 800; font-size: 42px; line-height: 1.04">Got a Norway maple on your street?</div></div>'
     )
     inner = (
         kicker_row("Good to know", "5 / 5", C["maroon"])
