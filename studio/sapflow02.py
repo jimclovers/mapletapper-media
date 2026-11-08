@@ -30,24 +30,7 @@ def arrow(x, y, up, color, size=46):
             f'L{x + 13} {y + d * (size / 2 - 15)}" fill="none" stroke="{color}" style="stroke-width:8;stroke-linecap:round;stroke-linejoin:round"></path>')
 
 
-def santa(p=715):
-    R, Wt = '#C8321F', '#FFFFFF'
-    return (f'<ellipse cx="{p + 45}" cy="868" rx="90" ry="10" fill="#000" opacity=".08"></ellipse>'
-            f'<rect x="{p + 18}" y="770" width="30" height="92" rx="10" fill="{R}"></rect><rect x="{p + 52}" y="770" width="30" height="92" rx="10" fill="#B02A19"></rect>'
-            f'<path d="M{p + 8} 846 h46 v28 h-54 z M{p + 48} 846 h46 v28 h-50 z" fill="#1C1C1C"></path>'
-            f'<path d="M{p - 6} 640 Q{p + 48} 610 {p + 102} 640 L{p + 112} 790 L{p - 16} 790 Z" fill="{R}"></path>'
-            f'<path d="M{p + 48} 640 L{p + 48} 790" stroke="{Wt}" style="stroke-width:14"></path><rect x="{p - 16}" y="778" width="128" height="16" rx="6" fill="{Wt}"></rect>'
-            f'<rect x="{p - 12}" y="712" width="120" height="20" fill="#1C1C1C"></rect><rect x="{p + 36}" y="708" width="26" height="28" rx="3" fill="#F4B63F"></rect>'
-            f'<path d="M{p + 6} 660 Q{p - 34} 668 {p - 50} 690" fill="none" stroke="{R}" style="stroke-width:28;stroke-linecap:round"></path>'
-            f'<circle cx="{p - 52}" cy="692" r="13" fill="#1C1C1C"></circle>'
-            f'<circle cx="{p + 48}" cy="598" r="32" fill="#F2C4A0"></circle>'
-            f'<path d="M{p + 14} 600 Q{p + 10} 672 {p + 48} 684 Q{p + 86} 672 {p + 82} 600 Q{p + 48} 622 {p + 14} 600 Z" fill="{Wt}"></path>'
-            f'<path d="M{p + 14} 584 Q{p + 40} 520 {p + 108} 548 L{p + 82} 584 Z" fill="{R}"></path><circle cx="{p + 110}" cy="550" r="11" fill="{Wt}"></circle>'
-            f'<rect x="{p + 10}" y="578" width="76" height="16" rx="8" fill="{Wt}"></rect>'
-            f'<circle cx="{p + 36}" cy="602" r="3.5" fill="#333"></circle><circle cx="{p + 60}" cy="602" r="3.5" fill="#333"></circle>'
-            f'<circle cx="{p + 48}" cy="612" r="6" fill="#E59A8A"></circle>')
-
-
+from figures import sugarmaker, santa, reindeer_cart, owl
 FIGURE = 'person'
 
 
@@ -96,23 +79,13 @@ def scene_svg():
     s.append(f'<path d="M608 626 L666 626" stroke="#7D8A96" style="stroke-width:5"></path>')
     s.append(f'<path d="M624 616 q4 8 0 12 q-4 -4 0 -12" fill="#7FC0EC"></path>')
     if FIGURE == 'santa':
+        s.append(f'<g transform="translate(872 864) scale(.9)">{reindeer_cart(0, 0)}</g>')
         s.append(santa())
     else:
-        # person (flat drawing) checking the bucket: winter coat, knit hat, boots
-        p = 715
-        s.append(f'<ellipse cx="{p + 45}" cy="868" rx="85" ry="10" fill="#000" opacity=".08"></ellipse>')
-        s.append(f'<rect x="{p + 20}" y="760" width="26" height="100" rx="10" fill="#2E3A4E"></rect>')
-        s.append(f'<rect x="{p + 52}" y="760" width="26" height="100" rx="10" fill="#26303F"></rect>')
-        s.append(f'<path d="M{p + 12} 860 h40 v14 h-46 z M{p + 48} 860 h40 v14 h-44 z" fill="#3B2A1E"></path>')
-        s.append(f'<path d="M{p + 8} 640 Q{p + 48} 618 {p + 90} 640 L{p + 96} 775 L{p + 2} 775 Z" fill="{RED}"></path>')
-        s.append(f'<path d="M{p + 48} 640 L{p + 48} 775" stroke="#9E2617" style="stroke-width:3"></path>')
-        s.append(f'<path d="M{p + 14} 660 Q{p - 30} 668 {p - 50} 690" fill="none" stroke="{RED}" style="stroke-width:24;stroke-linecap:round"></path>')
-        s.append(f'<circle cx="{p - 52}" cy="692" r="12" fill="#3B2A1E"></circle>')
-        s.append(f'<circle cx="{p + 48}" cy="602" r="32" fill="#E8B58F"></circle>')
-        s.append(f'<path d="M{p + 15} 598 Q{p + 48} 545 {p + 81} 598 Z" fill="{GOLD}"></path>')
-        s.append(f'<rect x="{p + 13}" y="590" width="70" height="14" rx="6" fill="{M}"></rect>')
-        s.append(f'<circle cx="{p + 48}" cy="560" r="9" fill="{M}"></circle>')
-        s.append(f'<path d="M{p + 18} 618 q30 18 60 0" fill="none" stroke="{GOLD}" style="stroke-width:12"></path>')
+        s.append(sugarmaker())
+
+    # owl perched on the low branch, night side
+    s.append(f'<g transform="translate(468 312) scale(.92)">{owl()}</g>')
 
     # center split line
     s.append(f'<path d="M540 0 L540 {SH}" stroke="#FFFFFF" style="stroke-width:3;opacity:.55" stroke-dasharray="10 10"></path>')

@@ -9,13 +9,16 @@ import os
 import subprocess
 import sys
 
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from figures import sugarmaker, owl, santa, reindeer_cart
 from playwright.sync_api import sync_playwright
 
 STUDIO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ROOT = os.path.dirname(STUDIO)
 OUT = os.path.join(ROOT, "reels", "reel7")
 os.makedirs(OUT, exist_ok=True)
-NAME = "MapleTapper-Reel-SapFlow"
+SANTA = "--santa" in sys.argv
+NAME = "MapleTapper-Reel-SapFlow" + ("-Santa" if SANTA else "")
 W, H, FPS, DUR = 1080, 1920, 30, 36.0
 FONT = os.path.join(STUDIO, "fonts", "node_modules")
 FONTS = (f"@font-face{{font-family:'Bricolage Grotesque';src:url('file://{FONT}/@fontsource-variable/bricolage-grotesque/files/"
@@ -35,22 +38,6 @@ def tree():
     trunk = ('<path d="M512 230 Q540 210 568 230 L585 330 L600 700 Q640 760 720 780 L660 786 Q615 778 598 760 L606 800 L474 800 L482 760 '
              'Q465 778 420 786 L360 780 Q440 760 480 700 L495 330 Z"></path>')
     return br + trunk
-
-
-def person(p=715):
-    return (f'<ellipse cx="{p + 45}" cy="868" rx="85" ry="10" fill="#000" opacity=".08"></ellipse>'
-            f'<rect x="{p + 20}" y="760" width="26" height="100" rx="10" fill="#2E3A4E"></rect>'
-            f'<rect x="{p + 52}" y="760" width="26" height="100" rx="10" fill="#26303F"></rect>'
-            f'<path d="M{p + 12} 860 h40 v14 h-46 z M{p + 48} 860 h40 v14 h-44 z" fill="#3B2A1E"></path>'
-            f'<path d="M{p + 8} 640 Q{p + 48} 618 {p + 90} 640 L{p + 96} 775 L{p + 2} 775 Z" fill="#C8321F"></path>'
-            f'<path d="M{p + 48} 640 L{p + 48} 775" stroke="#9E2617" style="stroke-width:3"></path>'
-            f'<path d="M{p + 14} 660 Q{p - 30} 668 {p - 50} 690" fill="none" stroke="#C8321F" style="stroke-width:24;stroke-linecap:round"></path>'
-            f'<circle cx="{p - 52}" cy="692" r="12" fill="#3B2A1E"></circle>'
-            f'<circle cx="{p + 48}" cy="602" r="32" fill="#E8B58F"></circle>'
-            f'<path d="M{p + 15} 598 Q{p + 48} 545 {p + 81} 598 Z" fill="#F4B63F"></path>'
-            f'<rect x="{p + 13}" y="590" width="70" height="14" rx="6" fill="#7A1E1A"></rect>'
-            f'<circle cx="{p + 48}" cy="560" r="9" fill="#7A1E1A"></circle>'
-            f'<path d="M{p + 18} 618 q30 18 60 0" fill="none" stroke="#F4B63F" style="stroke-width:12"></path>')
 
 
 def arrow(i, cls):
@@ -86,7 +73,8 @@ def page():
  <rect id="fill" x="600" y="696" width="80" height="0" fill="#D9ECF8" clip-path="url(#B)"/>
  <path d="M608 626 L666 626" stroke="#7D8A96" style="stroke-width:5"/>
  <path id="drop" d="M0 -8 q5 9 0 14 q-5 -5 0 -14" fill="#7FC0EC"/>
- <g id="person">{person()}</g>
+ <g id="person">{('<g transform="translate(872 864) scale(.9)">' + reindeer_cart(0, 0) + '</g>' + santa()) if SANTA else sugarmaker()}</g>
+ <g id="owl" style="opacity:0">{owl(ids=True)}</g>
  <path id="split" d="M540 0 L540 960" stroke="#fff" style="stroke-width:3;opacity:.6" stroke-dasharray="10 10"/>
 </svg>'''
     css = (f"{FONTS} html,body{{margin:0}} #root{{position:relative;width:{W}px;height:{H}px;overflow:hidden;background:#FFF5DE}}"
@@ -95,7 +83,7 @@ def page():
            f" .cap p{{margin:16px 0 0;font-weight:600;font-size:43px;line-height:1.22}}"
            f" .k{{font-family:'Special Elite';font-size:30px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:12px}}")
     caps = {
-        "c0": ("Sugarmaker’s Almanac", 'What makes <span style="color:#C8321F">sap run?</span>', "It’s all about the weather."),
+        "c0": ("Sugarmaker’s Almanac · Holiday edition" if SANTA else "Sugarmaker’s Almanac", 'What makes <span style="color:#C8321F">sap run?</span>', "It’s all about the weather."),
         "c1": ("Night · in the 20s °F", 'The tree <span style="color:#C8321F">soaks it up.</span>', "Ice squeezes tiny air pockets in the wood. That suction pulls water up from the roots."),
         "c2": ("Day · in the 40s °F", 'The sap <span style="color:#C8321F">runs out.</span>', "The ice melts, the squeezed air pushes back, and sap flows down and out the spout."),
         "c3": ("Every day of sap season", 'Freeze, thaw, <span style="color:#C8321F">repeat.</span>', "Every cold night refills the tree. Every warm day lets it run."),
@@ -139,7 +127,31 @@ window.render=function(t){
   // drips + bucket filling during day
   const dk=(t*1.6)%1; $('drop').setAttribute('transform',`translate(626 ${630+62*dk})`); $('drop').style.opacity=((t<4)?0:dayOn)*cl((1-dk)/0.2);
   const fillH = t<14?6 : t<25? 6+48*cl((t-14)/11) : 54; $('fill').setAttribute('y',696-fillH); $('fill').setAttribute('height',fillH);
-  $('person').style.opacity = 1;
+
+  // sugarmaker / Santa: only around in daylight. Hidden at night, walks in from the right after sunrise.
+  const split2=(t<4)||(t>=25); const P=$('person');
+  if(split2||t>=17.5){ P.style.opacity=1; P.setAttribute('transform',''); }
+  else if(t<15.5){ P.style.opacity=0; }
+  else { const k=ease((t-15.5)/2.0); P.style.opacity=1; P.setAttribute('transform',`translate(${(1-k)*460} ${-Math.abs(Math.sin(t*9))*8*(1-k)})`); }
+  // owl: lands on the night side at dusk, leaves at sunrise before the man arrives, comes back for the next night
+  const PERCH=[384,185], OUTL=[-140,-90];
+  const owlG=$('owl'); let pos=null, fly=false, tilt=0;
+  const path=(a,b,p0,c,p1)=>{const k=ease(cl((t-a)/(b-a))); return [(1-k)*(1-k)*p0[0]+2*(1-k)*k*c[0]+k*k*p1[0], (1-k)*(1-k)*p0[1]+2*(1-k)*k*c[1]+k*k*p1[1]];};
+  if(t<5){ pos=null; }
+  else if(t<8){ pos=path(5,8,OUTL,[150,30],PERCH); fly=true; tilt=8; }
+  else if(t<14.2){ pos=PERCH; }
+  else if(t<16){ pos=path(14.2,16,PERCH,[220,40],OUTL); fly=true; tilt=-10; }
+  else if(t<25.2){ pos=null; }
+  else if(t<27.8){ pos=path(25.2,27.8,OUTL,[150,30],PERCH); fly=true; tilt=8; }
+  else { pos=PERCH; }
+  if(!pos){ owlG.style.opacity=0; }
+  else { owlG.style.opacity=1;
+    const landed=[8,27.8].find(L=>t>=L&&t<L+0.35); const bob=landed!==undefined? -6*Math.sin((t-landed)/0.35*Math.PI):0;
+    owlG.setAttribute('transform',`translate(${pos[0].toFixed(1)} ${(pos[1]+bob).toFixed(1)}) rotate(${fly?tilt:0})`);
+    $('owlWO').style.display=fly?'inline':'none'; $('owlWF').style.display=fly?'none':'inline';
+    const f=0.3+0.7*Math.abs(Math.sin(t*13)); ['owlWL','owlWR'].forEach(id=>$(id).setAttribute('transform',`translate(0 -42) scale(1 ${f.toFixed(3)}) translate(0 42)`));
+    const blink=[9.8,12.4,29.6].some(b=>t>b&&t<b+0.16); $('owlLid').style.display=(blink&&!fly)?'inline':'none';
+  }
   // captions
   [['c0',-1,4.0],['c1',4.0,14.0],['c2',14.0,25.0],['c3',25.0,31.0]].forEach(([id,a,b])=>{$(id).style.opacity=seg(t,a,b,0.5);});
   // end card
@@ -153,7 +165,7 @@ window.render=function(t){
 def main():
     draft = "--draft" in sys.argv
     audio = sys.argv[sys.argv.index("--audio") + 1] if "--audio" in sys.argv else None
-    html = os.path.join(OUT, "sapflow_anim.html")
+    html = os.path.join(OUT, NAME + ".html")
     open(html, "w").write(page())
     out = os.path.join(OUT, NAME + ("-voice" if audio else "") + ".mp4")
     n = int(DUR * FPS)
