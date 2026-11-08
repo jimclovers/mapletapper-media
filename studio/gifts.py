@@ -18,6 +18,10 @@ def img(name):
     return "file://" + os.path.join(SRC, name)
 
 
+def img2(name):
+    return "file:///home/claude/src2/" + name
+
+
 def pill(text, bg, fg, size=24):
     return (f'<span style="display: inline-flex; align-items: center; background: {bg}; color: {fg}; border-radius: 999px; '
             f'padding: 10px 20px 8px; font-family: {TYPE}; font-size: {size}px; letter-spacing: 0.06em; text-transform: uppercase">{text}</span>')
@@ -82,11 +86,11 @@ def last(head, lines, cta_label, cta_q, price_line, photo=None, alt="", photo_h=
 POSTS = {
     1: dict(
         slug="kidskit",
-        cover=dict(photo=img("kids_kit.jpg"), alt="The Kid's Maple Tree Tapping Kit: buckets, lids, spouts, filter and the kid's guide book",
-                   head="A gift they'll use outside, not on a screen.", sub="The Kid's Maple Tree Tapping Kit", fit="contain", tag="$39.97"),
+        cover=dict(photo=img2("tube_tree.jpg"), alt="A spout and blue tubing in a maple trunk, snow on the ground",
+                   head="A gift they'll use outside, not on a screen.", sub="The Kid's Maple Tree Tapping Kit", tag="$39.97"),
         mid=dict(kicker="Why kids love it", head="Real trees.<br>Real syrup.", photo=img("boy_spile.jpg"), alt="A child's hand on a spout in a maple trunk",
-                 items=[("They tap a real backyard maple", "Kid-size buckets and real spouts"),
-                        ("A guide book written just for them", "A Kid's Guide to Maple Tapping is in the box"),
+                 items=[("They tap a real backyard maple", "With real spouts and tubing"),
+                        ("Made for young sugarmakers", "Pair it with A Kid's Guide to Maple Tapping"),
                         ("A science lesson they can taste", "Watch sap drip, then boil it into syrup")]),
         last=dict(head="Open it at Christmas. Tap it in late winter.", lines=["Sap runs when nights freeze and days thaw, so the fun starts right after the holidays."],
                   cta_label="Your turn · tag a friend", cta_q="Know a kid who'd love this? Tag their grown-up!", price_line="Kid's Kit · $39.97", photo=img("syrup_jars.jpg"), alt="Jars of homemade maple syrup"),
@@ -109,9 +113,9 @@ POSTS = {
         mid=dict(kicker="What you get", head="Everything for a first season", photo=img("big_maple.jpg"), alt="A big maple trunk with snow at its base", photo_h=300,
                  items=[("10 taps", "Enough for up to 10 trees, one tap each"),
                         ("Our Guide to Maple Tapping book", "Step by step, from finding trees to bottling"),
-                        ("Made for backyards", "No sugar shack needed. A kitchen stove or a porch burner works.")]),
+                        ("Made for backyards", "No sugar shack needed. Start with the maples in your yard.")]),
         last=dict(head="The perfect gift for the curious one.", lines=["Know someone who's always asking “could I make my own syrup”? This is their answer."],
-                  cta_label="Your turn · comment below", cta_q="How many maples are in your yard?", price_line="Starter Kit + Book · $39.97", photo=img("boil_outside.jpg"), alt="Sap boiling outside"),
+                  cta_label="Your turn · comment below", cta_q="How many maples are in your yard?", price_line="Starter Kit + Book · $39.97", photo=img2("tube_tree.jpg"), alt="A spout and blue tubing in a maple trunk"),
     ),
     4: dict(
         slug="ultimate",
@@ -140,7 +144,7 @@ POSTS = {
     ),
     6: dict(
         slug="timeline",
-        cover=dict(photo=img("boil_outside.jpg"), alt="Sap boiling in a pot over a propane burner outside, steam rising",
+        cover=dict(photo=img2("tube_lid.jpg"), alt="A hand fitting blue tubing through a white bucket lid at the base of a maple",
                    head="Give it in December. Boil syrup by March.", sub="How a tapping kit gift plays out"),
         mid=dict(kicker="The gift timeline", head="From wrapping paper to pancakes", photo=img("dripping_sap.jpg"), alt="Sap dripping into a bucket", photo_h=300,
                  items=[("December: open the kit", "Read the guide over the holidays"),
@@ -154,7 +158,7 @@ POSTS = {
         slug="giftcard",
         cover=dict(photo=img("syrup_jars.jpg"), alt="Jars of homemade maple syrup stacked in a sunny window",
                    head="Not sure which kit? Let them pick.", sub="MapleTapper gift cards"),
-        mid=dict(kicker="Why a gift card", head="The no-guess gift", photo=img("boil_outside.jpg"), alt="Sap boiling outside", photo_h=340,
+        mid=dict(kicker="Why a gift card", head="The no-guess gift", photo=img2("tube_lid.jpg"), alt="Blue tubing running through a bucket lid", photo_h=340,
                  items=[("Any amount from $10 to $200", "Fits every budget"),
                         ("Good for anything in the shop", "Kits, books, spiles, filters and bottles"),
                         ("A last-minute lifesaver", "Perfect when you're short on time")]),
