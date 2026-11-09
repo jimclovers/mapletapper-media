@@ -12,7 +12,7 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 FONTS = "/home/claude/node/node_modules/@fontsource"
 LOGO = "data:image/png;base64," + base64.b64encode(open(os.path.join(ROOT, "assets", "logo.png"), "rb").read()).decode()
 W, H = 1080, 1350
-PAPER, INK, AMBER, RUST, SAGE, BERRY = "#F6EEDC", "#3B2A1E", "#C9822B", "#B5502A", "#6E8B5A", "#7A1E1A"
+PAPER, INK, AMBER, RUST, SAGE, BERRY = "#F7F4EE", "#3B2A1E", "#C9822B", "#B5502A", "#6E8B5A", "#7A1E1A"
 SERIF = "'Cormorant Garamond', Georgia, serif"
 HAND = "'Caveat', 'Comic Sans MS', cursive"
 
@@ -103,6 +103,12 @@ def leaf(x, y, s, col, rot=0):
     return f'<g transform="translate({x} {y}) rotate({rot}) scale({s})">{wash(f"<path d=\"{d}\" fill=\"FILL\"/>", col, op=.8)}</g>'
 
 
+def art(name, w, h, fit="cover", feather=70):
+    m = f"radial-gradient(ellipse {feather+2}% {feather}% at 50% 50%, #000 60%, transparent 100%)"
+    return (f'<img src="file://{ROOT}/photos/ai/{name}" alt="" style="width:{w}px;height:{h}px;object-fit:{fit};display:block;margin:0 auto;mix-blend-mode:multiply;'
+            f'-webkit-mask-image:{m};mask-image:{m}">')
+
+
 def svg(w, h, inner):
     return (f'<svg width="{w}" height="{h}" viewBox="0 0 {w} {h}" xmlns="http://www.w3.org/2000/svg" style="display:block">'
             f'<defs>{DEFS}</defs>{inner}</svg>')
@@ -130,8 +136,8 @@ def footer():
 
 
 R = dict(
-    no="No. 01", art="k01_carrots.jpg", title="Maple-Glazed Carrots", kicker="A weeknight side dish", time="20 minutes", serves="Serves 4",
-    blurb="Sweet, glossy and done in one pan. Real maple syrup gives carrots a buttery glaze that kids actually eat.",
+    no="No. 01", art="k01_carrots.jpg", sprig="k01_thyme.jpg", title="Maple-Glazed Carrots", kicker="A weeknight side dish", time="20 minutes", serves="Serves 4",
+    blurb="Sweet, glossy and done in one pan. Real maple syrup gives carrots a buttery glaze the whole family will love.",
     ingredients=[("1 lb", "carrots, peeled and sliced into coins"), ("1 tbsp", "butter"), ("2 tbsp", "pure maple syrup"),
                  ("¼ tsp", "salt, plus a pinch for the water"), ("", "black pepper, to taste"), ("", "fresh thyme or parsley (optional)")],
     steps=["Simmer the carrot coins in lightly salted water until just tender, 6 to 8 minutes. Drain.",
@@ -144,10 +150,9 @@ R = dict(
 
 
 def slide1(r):
-    art = (f'<img src="file://{ROOT}/photos/ai/{r["art"]}" alt="" style="width:1000px;height:563px;object-fit:cover;display:block;'
-           f'-webkit-mask-image:radial-gradient(ellipse 72% 70% at 50% 50%, #000 62%, transparent 100%);mask-image:radial-gradient(ellipse 72% 70% at 50% 50%, #000 62%, transparent 100%)">')
+    pic = art(r["art"], 1000, 563, feather=74)
     inner = (masthead(r["no"], r["kicker"])
-             + f'<div style="margin:24px -44px 0">{art}</div>'
+             + f'<div style="margin:24px -44px 0">{pic}</div>'
              + f'<h1 data-chk="title" style="margin:6px 0 0;font-weight:700;font-size:112px;line-height:.92;letter-spacing:-.01em;color:{BERRY}">{r["title"]}</h1>'
              + f'<div style="display:flex;gap:28px;margin-top:20px;font-family:{HAND};font-size:44px;color:{RUST}"><span>⏱ {r["time"]}</span><span>·</span><span>{r["serves"]}</span></div>'
              + f'<p style="margin:16px 0 0;font-size:38px;line-height:1.25;font-weight:500">{r["blurb"]}</p>'
@@ -160,9 +165,9 @@ def slide2(r):
         f'<div style="display:flex;gap:26px;align-items:baseline;padding:16px 0;border-bottom:1px dashed {INK}55">'
         f'<span style="width:150px;flex:none;font-family:{HAND};font-size:48px;color:{RUST}">{q}</span>'
         f'<span style="font-size:42px;font-weight:600;line-height:1.15">{t}</span></div>' for q, t in r["ingredients"])
-    art = svg(912, 300, carrots_dish(300, 150, .55, seed=7) + syrup_bottle(700, 90, .62) + leaf(820, 230, .9, "#C8321F", 30))
+    pic = art(r["art"], 600, 338)
     inner = (masthead(r["no"], "Ingredients") + f'<h2 style="margin:26px 0 8px;font-size:72px;font-weight:700;color:{BERRY}">You’ll need</h2>'
-             + rows + '<div style="flex:1"></div>' + f'<div style="margin:0 -20px 14px">{art}</div>' + footer())
+             + rows + '<div style="flex:1"></div>' + f'<div style="margin:0 0 10px">{pic}</div>' + footer())
     return page(inner)
 
 
@@ -174,27 +179,21 @@ def slide3(r):
         f'<span style="font-size:41px;font-weight:600;line-height:1.22">{t}</span></div>' for i, t in enumerate(r["steps"], 1))
     tip = (f'<div data-chk="tip" style="margin-top:34px;padding:22px 30px;background:#EAD9B8aa;border-radius:10px;border-left:8px solid {AMBER}">'
            f'<span style="font-family:{HAND};font-size:44px;color:{RUST}">Cook’s note: </span><span style="font-size:38px;font-style:italic;font-weight:600">{r["tip"]}</span></div>')
-    art = svg(912, 260, leaf(110, 120, 1.1, "#C8321F", -25) + carrots_dish(470, 130, .5, seed=21) + leaf(820, 110, .9, AMBER, 20))
+    pic = art(r["sprig"], 360, 300, fit="contain", feather=80)
     inner = (masthead(r["no"], "Method") + f'<h2 style="margin:26px 0 0;font-size:72px;font-weight:700;color:{BERRY}">Let’s cook</h2>' + steps + tip
-             + '<div style="flex:1"></div>' + f'<div style="margin:0 -20px 10px">{art}</div>' + footer())
+             + '<div style="flex:1"></div>' + f'<div style="margin:0 0 6px">{pic}</div>' + footer())
     return page(inner)
 
 
 def slide4(r):
-    book = svg(912, 470, f'<g transform="translate(250 30) rotate(-4)">'
-                         + wash('<rect x="0" y="0" width="420" height="400" rx="10" fill="FILL"/>', BERRY, "#4A0F0C", op=.92)
-                         + wash('<rect x="28" y="28" width="364" height="344" rx="6" fill="none" stroke="FILL" style="stroke-width:4"/>', "#F4B63F", op=.8)
-                         + f'<text x="210" y="120" text-anchor="middle" font-family="{SERIF}" font-weight="700" font-size="52" fill="#F6EEDC" letter-spacing="4">MAPLE</text>'
-                         + f'<text x="210" y="178" text-anchor="middle" font-family="{SERIF}" font-weight="700" font-size="52" fill="#F6EEDC" letter-spacing="4">KITCHEN</text>'
-                         + f'<text x="210" y="232" text-anchor="middle" font-family="{HAND}" font-size="38" fill="#F4B63F">all our recipes</text>'
-                         + '</g>' + leaf(250, 380, 1.4, "#C8321F", -20) + leaf(700, 70, 1.0, AMBER, 15) + carrots_dish(700, 390, .3, seed=11))
+    book = art(r["art"], 760, 428)
     box = (f'<div data-chk="cta" style="flex:1 1 0;background:{BERRY};color:{PAPER};border-radius:14px;padding:24px 30px">'
            f'<div style="font-family:{HAND};font-size:40px;color:#F4B63F">Your turn · comment below</div>'
            f'<div style="font-size:44px;font-weight:700;line-height:1.08">{r["cta_q"]}</div></div>')
     inner = (masthead(r["no"], "Free cookbook")
              + f'<h2 style="margin:26px 0 0;font-size:84px;line-height:.95;font-weight:700;color:{BERRY}">Get every recipe, free.</h2>'
              + f'<p style="margin:14px 0 0;font-size:40px;font-weight:600;line-height:1.22">Save them all in our <i>Maple Kitchen</i> cookbook. Print it for the kitchen or keep it on your phone.</p>'
-             + f'<div style="margin:10px -20px 0">{book}</div>'
+             + f'<div style="margin:14px 0 0">{book}</div>'
              + f'<div style="font-family:{HAND};font-size:52px;color:{RUST};text-align:center;margin-top:-6px">Download it free at mapletapper.com</div>'
              + '<div style="flex:1"></div>'
              + f'<div style="display:flex;gap:26px;align-items:center">{box}<img data-chk="logo" src="{LOGO}" alt="MapleTapper logo, www.mapletapper.com" style="width:200px;flex:none"></div>')
