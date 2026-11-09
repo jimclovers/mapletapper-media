@@ -10,7 +10,8 @@ import random
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 FONTS = "/home/claude/node/node_modules/@fontsource"
-LOGO = "data:image/png;base64," + base64.b64encode(open(os.path.join(ROOT, "assets", "logo.png"), "rb").read()).decode()
+LOGO_FILE = os.environ.get("KLOGO", "logo_rough2.png")  # Maple Kitchen only: watercolor-style logo
+LOGO = "data:image/png;base64," + base64.b64encode(open(os.path.join(ROOT, "assets", LOGO_FILE), "rb").read()).decode()
 W, H = 1080, 1350
 PAPER, INK, AMBER, RUST, SAGE, BERRY = "#F7F4EE", "#3B2A1E", "#C9822B", "#B5502A", "#6E8B5A", "#7A1E1A"
 SERIF = "'Cormorant Garamond', Georgia, serif"
