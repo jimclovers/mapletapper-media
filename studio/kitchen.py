@@ -156,7 +156,7 @@ def slide2(r):
         f'<span style="width:150px;flex:none;font-family:{HAND};font-size:48px;color:{RUST}">{q}</span>'
         f'<span style="font-size:42px;font-weight:600;line-height:1.15">{t}</span></div>' for q, t in r["ingredients"])
     pic = art(r["art"], 600, 338)
-    inner = (masthead(r["no"], "Ingredients") + f'<h2 style="margin:26px 0 8px;font-size:72px;font-weight:700;color:{BERRY}">You’ll need</h2>'
+    inner = (masthead(r["no"], "Ingredients") + f'<h2 style="margin:26px 0 8px;font-size:72px;font-weight:700;color:{BERRY}">Ingredients</h2>'
              + rows + '<div style="flex:1"></div>' + f'<div style="margin:0 0 10px">{pic}</div>' + footer())
     return page(inner)
 
