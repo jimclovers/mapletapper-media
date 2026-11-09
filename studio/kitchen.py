@@ -135,18 +135,8 @@ def footer():
             f'<span>@mapletapper</span><span>Swipe for the recipe →</span></div>')
 
 
-R = dict(
-    no="No. 01", art="k01_carrots.jpg", sprig="k01_thyme.jpg", title="Maple-Glazed Carrots", kicker="A weeknight side dish", time="20 minutes", serves="Serves 4",
-    blurb="Sweet, glossy and done in one pan. Real maple syrup gives carrots a buttery glaze the whole family will love.",
-    ingredients=[("1 lb", "carrots, peeled and sliced into coins"), ("1 tbsp", "butter"), ("2 tbsp", "pure maple syrup"),
-                 ("¼ tsp", "salt, plus a pinch for the water"), ("", "black pepper, to taste"), ("", "fresh thyme or parsley (optional)")],
-    steps=["Simmer the carrot coins in lightly salted water until just tender, 6 to 8 minutes. Drain.",
-           "In the same pan, melt the butter over medium heat. Stir in the maple syrup and salt.",
-           "Add the carrots and stir for 2 to 3 minutes, until the glaze turns thick and glossy.",
-           "Season with pepper, scatter on the herbs, and serve warm."],
-    tip="Darker syrup grades taste more mapley, perfect for glazes.",
-    cta_q="What should we cook with maple next?",
-)
+from kitchen_recipes import RECIPES
+BOOK_LIVE = False
 
 
 def slide1(r):
@@ -179,7 +169,7 @@ def slide3(r):
         f'<span style="font-size:41px;font-weight:600;line-height:1.22">{t}</span></div>' for i, t in enumerate(r["steps"], 1))
     tip = (f'<div data-chk="tip" style="margin-top:34px;padding:22px 30px;background:#EAD9B8aa;border-radius:10px;border-left:8px solid {AMBER}">'
            f'<span style="font-family:{HAND};font-size:44px;color:{RUST}">Cook’s note: </span><span style="font-size:38px;font-style:italic;font-weight:600">{r["tip"]}</span></div>')
-    pic = art(r["sprig"], 360, 300, fit="contain", feather=80)
+    pic = art(r["sprig"], 360, 300, fit="contain", feather=80) if r.get("sprig") else art(r["art"], 420, 236)
     inner = (masthead(r["no"], "Method") + f'<h2 style="margin:26px 0 0;font-size:72px;font-weight:700;color:{BERRY}">Let’s cook</h2>' + steps + tip
              + '<div style="flex:1"></div>' + f'<div style="margin:0 0 6px">{pic}</div>' + footer())
     return page(inner)
@@ -190,17 +180,29 @@ def slide4(r):
     box = (f'<div data-chk="cta" style="flex:1 1 0;background:{BERRY};color:{PAPER};border-radius:14px;padding:24px 30px">'
            f'<div style="font-family:{HAND};font-size:40px;color:#F4B63F">Your turn · comment below</div>'
            f'<div style="font-size:44px;font-weight:700;line-height:1.08">{r["cta_q"]}</div></div>')
+    if BOOK_LIVE:
+        head, sub, line = ("Get every recipe, free.",
+                           "Save them all in our <i>Maple Kitchen</i> cookbook. Print it for the kitchen or keep it on your phone.",
+                           "Download it free at mapletapper.com")
+    else:
+        head, sub, line = ("A free cookbook is coming.",
+                           "We’re collecting every <i>Maple Kitchen</i> recipe into a free cookbook to print for the kitchen or keep on your phone.",
+                           "Follow along so you don’t miss it!")
     inner = (masthead(r["no"], "Free cookbook")
-             + f'<h2 style="margin:26px 0 0;font-size:84px;line-height:.95;font-weight:700;color:{BERRY}">Get every recipe, free.</h2>'
-             + f'<p style="margin:14px 0 0;font-size:40px;font-weight:600;line-height:1.22">Save them all in our <i>Maple Kitchen</i> cookbook. Print it for the kitchen or keep it on your phone.</p>'
+             + f'<h2 style="margin:26px 0 0;font-size:84px;line-height:.95;font-weight:700;color:{BERRY}">{head}</h2>'
+             + f'<p style="margin:14px 0 0;font-size:40px;font-weight:600;line-height:1.22">{sub}</p>'
              + f'<div style="margin:14px 0 0">{book}</div>'
-             + f'<div style="font-family:{HAND};font-size:52px;color:{RUST};text-align:center;margin-top:-6px">Download it free at mapletapper.com</div>'
+             + f'<div style="font-family:{HAND};font-size:52px;color:{RUST};text-align:center;margin-top:-6px">{line}</div>'
              + '<div style="flex:1"></div>'
              + f'<div style="display:flex;gap:26px;align-items:center">{box}<img data-chk="logo" src="{LOGO}" alt="MapleTapper logo, www.mapletapper.com" style="width:200px;flex:none"></div>')
     return page(inner)
 
 
 if __name__ == "__main__":
-    for i, fn in enumerate((slide1, slide2, slide3, slide4), 1):
-        open(os.path.join(ROOT, "preview", f"Kitchen01-{i}.html"), "w").write(fn(R))
-    print("built")
+    import sys
+    want = sys.argv[1:] or list(RECIPES)
+    for key in want:
+        r = RECIPES[key]
+        for i, fn in enumerate((slide1, slide2, slide3, slide4), 1):
+            open(os.path.join(ROOT, "preview", f"Kitchen{key}-{i}.html"), "w").write(fn(r))
+    print("built", want)
