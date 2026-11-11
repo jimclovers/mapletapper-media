@@ -120,7 +120,7 @@ def slide2():
              + clue(badge(droop), "Droopy leaf edges", "The leaf looks a little wilted")
              + clue(badge(fuzzy), "Fuzzy underside", "Soft, velvety hairs all over the back")
              + "</div>")
-    inner = (kicker_row("How to spot it", "2 / 5", C["maroon"])
+    inner = (kicker_row("How to spot it", "2 / 6", C["maroon"])
              + headline("3 clues it’s<br>a black maple", 92, C["maroon"])
              + pic + clues + '<div style="flex-grow: 1"></div>' + footer_row(C["maroon"], swipe(C["maroon"])))
     return root(C["cream"], column(inner, gap=28), C["maroon"]), "How to spot a black maple"
@@ -141,7 +141,7 @@ def slide3():
     table = f'<div data-chk="table" style="background: {C["cream"]}; border-radius: 30px; padding: 30px 34px 10px">{head}{body_rows}</div>'
     note = body("So close that many botanists call black maple a kind of sugar maple, and the two often cross. "
                 "The ears can fall off by late summer, so check a few leaves.", 34, C["maroon"], "note", "; font-weight: 600")
-    inner = (kicker_row("Side by side", "3 / 5", C["maroon"])
+    inner = (kicker_row("Side by side", "3 / 6", C["maroon"])
              + headline("Twins, with<br>a few tells", 104, C["maroon"])
              + table + note + '<div style="flex-grow: 1"></div>' + footer_row(C["maroon"], swipe(C["maroon"])))
     return root(C["gold"], column(inner, gap=30), C["maroon"]), "Sugar maple vs black maple"
@@ -157,7 +157,7 @@ def slide4():
              + "".join(f'<div style="font-family: {DISPLAY}; font-weight: 700; font-size: 36px; line-height: 1.2; color: {C["maroon"]}">🍁 {t}</div>'
                        for t in ["At least 12 inches across, 4½ feet up", "A 5/16″ tree-saver spout", "Food-grade taps, tubing and buckets"])
              + "</div>")
-    inner = (kicker_row("Can you tap it?", "4 / 5", C["cream"])
+    inner = (kicker_row("Can you tap it?", "4 / 6", C["cream"])
              + yes
              + p("Black maple sap is about as sweet as sugar maple sap, say Ohio State and University of Missouri tree experts.", "p1")
              + p("That’s why sugarmakers tap the two side by side, often without knowing which is which.", "p2")
@@ -177,18 +177,23 @@ def slide5():
            f'flex-direction: column; gap: 8px"><div style="font-family: {TYPE}; font-size: 24px; letter-spacing: 0.06em; text-transform: uppercase; '
            f'color: {C["gold"]}">Your turn · comment below</div><div style="font-family: {DISPLAY}; font-weight: 800; font-size: 40px; line-height: 1.06">'
            f'Sugar or black? What do you think you have?</div></div>')
-    inner = (kicker_row("Good to know", "5 / 5", C["maroon"])
+    inner = (kicker_row("Good to know", "5 / 6", C["maroon"])
              + f'<div style="display: flex; align-items: center; gap: 24px">{svg(240, 240, leaf)}'
                + headline("Tap it right<br>beside your<br>sugar maples", 84, C["maroon"]) + "</div>"
              + facts + '<div style="flex-grow: 1"></div>'
              + f'<div style="display: flex; align-items: center; gap: 28px">{cta}'
-               f'<img data-chk="logo" src="{LOGO}" alt="MapleTapper logo, www.mapletapper.com" style="width: 210px; flex: none; display: block"></div>'
-             + footer_row(C["maroon"], "<span></span>"))
+               f'</div>'
+             + footer_row(C["maroon"], swipe(C["maroon"])))
     return root(C["cream"], column(inner, gap=30), C["maroon"]), "Good to know: black maple"
 
 
+def slide6():
+    from closing import card
+    return card("Black maples are just the start.", 1080, 1350), "Black maples are just the start"
+
+
 SLIDES = [("BlackMaple01-1-Cover", slide1), ("BlackMaple01-2-Spot", slide2), ("BlackMaple01-3-Twins", slide3),
-          ("BlackMaple01-4-Tap", slide4), ("BlackMaple01-5-Know", slide5)]
+          ("BlackMaple01-4-Tap", slide4), ("BlackMaple01-5-Know", slide5), ("BlackMaple01-6-Closing", slide6)]
 
 if __name__ == "__main__":
     os.makedirs(os.path.join(ROOT, "preview"), exist_ok=True)

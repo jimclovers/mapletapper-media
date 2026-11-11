@@ -31,3 +31,19 @@ Covers rotate styles so the IG grid isn't all maroon bands: full real photo, clo
 
 ## Leaf bottle rule (Jim, Nov 11 2026)
 Whenever the maple-leaf glass bottles appear (covers, inner slides, pins, Reels), show the gold cap on top. Never crop the cap off. Use photos with the cap on, e.g. studio/photos/products/leaf_bottle_gold_cap.jpg.
+
+## Standard closing (Jim, Nov 11 2026) - every carousel and video
+Last slide of every carousel / last 5-8 s of every video. Warm invitation, not a sales pitch: no "buy now", "shop today" or prices. Builder: studio/closing.py (card(topic, w, h)).
+- Line 1 (swap per post): "[Today's topic] is just the start."  Default: "Beautiful maple trees are just the start."
+- On screen: "Tapping kits, food-grade spiles and tubing, plus our tapping guide and kids' book." + mapletapper.com + "Everything your family needs to make pure maple syrup."
+- Spoken: "[Topic] is just the start. You'll find tapping kits, food-grade spiles and tubing, plus our tapping guide and kids' book, at Maple Tapper dot com. Everything your family needs to make pure maple syrup."
+- No "buckets" (none sold now). Real MapleTapper photo on the card; logo + website big enough to read on a phone; on Reels keep them above the bottom ~300 px.
+- A "who we are" line (like Clovers' "Three generations...") is still to be chosen. Never use a business claim (family owned, years, made in USA) until Jim confirms it.
+- The "Your turn · comment below" box moves to the slide before the closing.
+- Every line must teach something specific in plain words.
+
+## Narration (Jim, Nov 11 2026)
+- Voice: ElevenLabs "Holden - Warm Midwest Narrator" (oXpouBLuKFVTJwcJO3YL), model eleven_v4 (same as Clovers).
+- Script first, one sentence per scene, each teaching something; [pause] between scenes. Split at the pauses (silencedetect), time each scene to its sentence + ~0.5 s, no dead air. Say "Maple Tapper dot com". Loudnorm to about -14 LUFS for phones.
+- AI voice = turn on Meta's AI label when scheduling (instagramData.isAiGenerated). Jim's own voice needs no label.
+- Tell Jim the credit cost every time (sample: ~416 credits per take of a 28 s script).

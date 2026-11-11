@@ -1,4 +1,4 @@
-"""Standard MapleTapper closing card (Jim, Nov 11 2026) - DRAFT, waiting on Jim's approval.
+"""Standard MapleTapper closing card (Jim, Nov 11 2026) - APPROVED wording (Jim, Nov 11 2026).
 Last slide of every carousel / last 5-8 s of every video. Warm invitation, no prices, no "buy now".
 Pattern: 1) "[Topic] is just the start."  2) what people find at mapletapper.com  3) who it's for.
 Real MapleTapper photo on top, big logo + website readable on a phone.
@@ -15,8 +15,8 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 M, CR, G = C["maroon"], C["cream"], C["gold"]
 PHOTO = os.path.join(ROOT, "photos", "products", "kids_kit_snow_jugs.jpg")  # real photo from the Kid's Kit box: tubing into jugs in snow
 
-FIND = "Tapping kits, food-grade spiles, tubing and buckets, plus our tapping guide and kids’ book."
-WHO = "Everything a family needs to make its own syrup."
+FIND = "Tapping kits, food-grade spiles and tubing, plus our tapping guide and kids’ book."
+WHO = "Everything your family needs to make pure maple syrup."
 
 
 def uri(p, mime="image/jpeg"):
@@ -45,8 +45,11 @@ def card(topic, w=1080, h=1920, find=FIND, who=WHO):
     )
 
 
+SPOKEN = "{topic} You'll find tapping kits, food-grade spiles and tubing, plus our tapping guide and kids' book, at Maple Tapper dot com. Everything your family needs to make pure maple syrup."
+
+
 if __name__ == "__main__":
-    topic = sys.argv[1] if len(sys.argv) > 1 else "Two-tone maples are just the start."
+    topic = sys.argv[1] if len(sys.argv) > 1 else "Beautiful maple trees are just the start."
     os.makedirs(os.path.join(ROOT, "preview"), exist_ok=True)
     open(os.path.join(ROOT, "preview", "Closing-reel.html"), "w").write(preview_html("Closing", card(topic)))
     open(os.path.join(ROOT, "preview", "Closing-post.html"), "w").write(preview_html("Closing", card(topic, 1080, 1350)))
