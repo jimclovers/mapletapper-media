@@ -43,7 +43,7 @@ def g1():
 # 2 Tue Nov 17 - Teacher / classroom gift: full-bleed real photo, small label only
 def g2():
     inner = (
-        photo(JIM("bucket_tubing_tap.jpg"), "50% 45%") + fade(420)
+        photo(PR("kids_kit_snow_jugs.jpg"), "50% 50%") + fade(420)
         + f'<div data-chk="title" style="position: absolute; left: 56px; bottom: 150px; z-index: 3">{tag("A gift for the class", CR, M, 40, "; font-weight: 700")}</div>'
         + handle("#FFFFFF") + logo_badge(bottom=40, size=130)
     )
@@ -79,15 +79,13 @@ def g4():
     return rootdiv("#2a1a10", inner)
 
 
-# 5 Fri Nov 20 - Grandparents: sky blue block + book cover cut-out
+# 5 Fri Nov 20 - Grandparents: sky blue block + BIG Kid's Guide cover cut-out
 def g5():
     inner = (
         top_tag("For grandparents", G, NAVY)
-        + f'<div style="position: absolute; left: 56px; top: 140px; width: 560px">' + headline("Start a family tradition", 116, NAVY, chk="title") + "</div>"
-        + f'<div data-chk="pic" style="position: absolute; right: 70px; top: 520px; width: 500px; height: 530px; transform: rotate(4deg); '
-          f'border: 14px solid #fff; box-shadow: 0 14px 40px rgba(0,0,0,.25); overflow: hidden">{photo(PR("kids_guide_cover.jpg"))}</div>'
-        + f'<div data-chk="sub" style="position: absolute; left: 56px; top: 600px; width: 380px; font-family: {DISPLAY}; font-weight: 700; '
-          f'font-size: 42px; line-height: 1.15; color: {NAVY}">Tap a tree with the grandkids this spring.</div>'
+        + f'<div style="position: absolute; left: 56px; top: 130px; width: 960px">' + headline("Start a family tradition", 84, NAVY, chk="title", extra="; white-space: nowrap") + "</div>"
+        + f'<div data-chk="pic" style="position: absolute; left: 170px; top: 290px; width: 740px; height: 780px; transform: rotate(-2deg); '
+          f'border: 16px solid #fff; box-shadow: 0 16px 44px rgba(0,0,0,.28); overflow: hidden">{photo(PR("kids_guide_cover_hi.jpg"))}</div>'
         + handle(NAVY) + logo_badge(bg="#FFFFFF")
     )
     return rootdiv(SKY, inner)
