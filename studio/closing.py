@@ -17,6 +17,8 @@ PHOTO = os.path.join(ROOT, "photos", "products", "kids_kit_snow_jugs.jpg")  # re
 
 FIND = "Tapping kits, food-grade spiles and tubing, plus our tapping guide and kids’ book."
 WHO = "Everything your family needs to make pure maple syrup."
+WE = "Three generations tapping our Michigan family farm, and we love getting you started."
+TAG = "Tap a tree this season and see what sweet things happen!"
 
 
 def uri(p, mime="image/jpeg"):
@@ -25,7 +27,7 @@ def uri(p, mime="image/jpeg"):
 
 def card(topic, w=1080, h=1920, find=FIND, who=WHO):
     reel = h > 1500
-    photo_h = 760 if reel else 440
+    photo_h = 560 if reel else 360
     s = 1.0 if reel else 0.9
     logo = uri(os.path.join(ROOT, "assets", "logo.png"), "image/png")
     return (
@@ -33,19 +35,22 @@ def card(topic, w=1080, h=1920, find=FIND, who=WHO):
         f'<img src="{uri(PHOTO)}" alt="Blue tubing running from maple taps into jugs in the snow" '
         f'style="position: absolute; left: 0; top: 0; width: {w}px; height: {photo_h}px; object-fit: cover; object-position: 50% 30%">'
         f'<div style="position: absolute; left: 0; right: 0; top: {photo_h - 6}px; height: 12px; background: {G}"></div>'
-        f'<div style="position: absolute; left: 70px; right: 70px; top: {photo_h + int(56 * s)}px; display: flex; flex-direction: column; gap: {int(26 * s)}px">'
+        f'<div style="position: absolute; left: 70px; right: 70px; top: {photo_h + int(48 * s)}px; display: flex; flex-direction: column; gap: {int(26 * s)}px">'
         f'<h1 data-chk="topic" style="margin: 0; font-weight: 800; font-size: {int(84 * s)}px; line-height: .98; letter-spacing: -.02em; color: {M}">{topic}</h1>'
         f'<p data-chk="find" style="margin: 0; font-weight: 600; font-size: {int(44 * s)}px; line-height: 1.22; color: {M}">{find}</p>'
-        f'<p data-chk="who" style="margin: 0; font-weight: 700; font-size: {int(44 * s)}px; line-height: 1.22; color: {C["red"]}">{who}</p></div>'
-        f'<div data-chk="brand" style="position: absolute; left: 70px; right: 70px; bottom: {330 if reel else 70}px; display: flex; align-items: center; '
+        f'<p data-chk="who" style="margin: 0; font-weight: 700; font-size: {int(44 * s)}px; line-height: 1.22; color: {C["red"]}">{who}</p>'
+        f'<p data-chk="we" style="margin: {int(6 * s)}px 0 0; padding-top: {int(22 * s)}px; border-top: 3px solid rgba(122,30,26,.2); font-weight: 500; font-style: italic; '
+        f'font-size: {int(38 * s)}px; line-height: 1.25; color: {M}">{WE}</p></div>'
+        f'<div data-chk="brand" style="position: absolute; left: 70px; right: 70px; bottom: {310 if reel else 70}px; display: flex; align-items: center; '
         f'justify-content: center; gap: {int(36 * s)}px">'
         f'<img src="{logo}" alt="MapleTapper logo" style="width: {int(260 * s)}px; display: block">'
-        f'<div style="font-family: {DISPLAY}; font-weight: 800; font-size: {int(74 * s)}px; letter-spacing: -.01em; color: {M}">mapletapper.com</div></div>'
+        f'<div><div style="font-family: {DISPLAY}; font-weight: 800; font-size: {int(74 * s)}px; letter-spacing: -.01em; color: {M}">mapletapper.com</div>'
+        f'<div data-chk="tag" style="font-family: {DISPLAY}; font-weight: 700; font-size: {int(30 * s)}px; line-height: 1.2; color: {C["red"]}; margin-top: 6px; max-width: {int(560 * s)}px">{TAG}</div></div></div>'
         f'</div>'
     )
 
 
-SPOKEN = "{topic} You'll find tapping kits, food-grade spiles and tubing, plus our tapping guide and kids' book, at Maple Tapper dot com. Everything your family needs to make pure maple syrup."
+SPOKEN = "{topic} You'll find tapping kits, food-grade spiles and tubing, plus our tapping guide and kids' book, at Maple Tapper dot com. Everything your family needs to make pure maple syrup. Tap a tree this season and see what sweet things happen!"
 
 
 if __name__ == "__main__":

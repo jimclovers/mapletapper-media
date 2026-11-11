@@ -55,3 +55,9 @@ Last slide of every carousel / last 5-8 s of every video. Warm invitation, not a
 - Never mention that we make syrup ourselves (we don't sell syrup; people would ask to buy it).
 - Books: "our Guide to Maple Tapping" and "our Kid's Guide to Maple Tapping". Don't name the author.
 - No start year / years-in-business claim (not given).
+
+## Closing: who-we-are line + tagline (Jim, Nov 11 2026)
+- Who we are (on every closing card, italic, under the "Everything your family needs..." line): "Three generations tapping our Michigan family farm, and we love getting you started."
+- Tagline (under mapletapper.com on the card, last spoken line, and a good caption sign-off): "Tap a tree this season and see what sweet things happen!" (already on mapletapper.com/pages/about-us)
+- Confirmed fact: "three generations tapping our Michigan farm" may be used.
+- Never use "We'll show you how, bring you the gear, and be there for you" (sounds like we'll meet them in the woods).
