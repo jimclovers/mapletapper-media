@@ -28,3 +28,6 @@ Guarantee (Jim, Nov 8 2026): all MapleTapper taps, tubing and equipment carry a 
 
 ## Grid variety (Jim, Nov 11 2026)
 Covers rotate styles so the IG grid isn't all maroon bands: full real photo, close-up texture with big white words, cream watercolor (Maple Kitchen), bright solid color (sky blue #9FD3F0, pine #1F4A36, navy #16233F, gold, snow #F7F4EE), product flat-lay, Reel video frame. Max 1 maroon-band cover per row of 3. Small round logo badge on every cover. Builder: studio/covers_v2.py (helpers: logo_badge, tag, handle). Nov 12-15 covers replaced with *-1-cover-v2.jpg (post07-10, gift04-06); gift07 keeps its maroon cover on purpose.
+
+## Leaf bottle rule (Jim, Nov 11 2026)
+Whenever the maple-leaf glass bottles appear (covers, inner slides, pins, Reels), show the gold cap on top. Never crop the cap off. Use photos with the cap on, e.g. studio/photos/products/leaf_bottle_gold_cap.jpg.

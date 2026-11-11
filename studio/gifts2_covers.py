@@ -67,11 +67,12 @@ def g3():
     return rootdiv(G, inner)
 
 
-# 4 Thu Nov 19 - Filters + glass leaf bottles: close-up photo, big white words
+# 4 Thu Nov 19 - Filters + glass leaf bottles: close-up photo, big white words.
+# Rule (Jim, Nov 11): always show the gold cap on the leaf bottles - never crop it off.
 def g4():
     inner = (
-        photo(PR("leaf_bottle_fall.jpg"), "50% 100%", "; transform: scale(1.6); transform-origin: 50% 100%") + fade(700)
-        + top_tag(GUIDE, "rgba(255,255,255,.92)", M)
+        photo(PR("leaf_bottle_gold_cap.jpg"), "50% 0%") + fade(640)
+        + f'<div style="position: absolute; right: 56px; top: 60px; z-index: 3">{tag(GUIDE, "rgba(255,255,255,.92)", M, 30)}</div>'
         + f'<div style="position: absolute; left: 56px; right: 56px; bottom: 210px">'
         + headline("Bottle their<br>first batch", 140, "#FFFFFF", chk="title", extra="; text-shadow: 0 3px 16px rgba(0,0,0,.4)") + "</div>"
         + handle("#FFFFFF") + logo_badge(bottom=40, size=130)
