@@ -47,3 +47,11 @@ Last slide of every carousel / last 5-8 s of every video. Warm invitation, not a
 - Script first, one sentence per scene, each teaching something; [pause] between scenes. Split at the pauses (silencedetect), time each scene to its sentence + ~0.5 s, no dead air. Say "Maple Tapper dot com". Loudnorm to about -14 LUFS for phones.
 - AI voice = turn on Meta's AI label when scheduling (instagramData.isAiGenerated). Jim's own voice needs no label.
 - Tell Jim the credit cost every time (sample: ~416 credits per take of a 28 s script).
+
+## Business facts Jim confirmed (Nov 11 2026) - use only these
+- MapleTapper is family run. Say "family run" / "a family business" without naming who.
+- Mission angle: getting people outside tapping maple trees and making pure maple syrup; a back-to-nature activity.
+- Gear: say "made in North America" (mix of USA and Canada). Don't say "Made in USA" for the line as a whole.
+- Never mention that we make syrup ourselves (we don't sell syrup; people would ask to buy it).
+- Books: "our Guide to Maple Tapping" and "our Kid's Guide to Maple Tapping". Don't name the author.
+- No start year / years-in-business claim (not given).
