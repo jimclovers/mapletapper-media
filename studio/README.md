@@ -61,3 +61,7 @@ Last slide of every carousel / last 5-8 s of every video. Warm invitation, not a
 - Tagline (under mapletapper.com on the card, last spoken line, and a good caption sign-off): "Tap a tree this season and see what sweet things happen!" (already on mapletapper.com/pages/about-us)
 - Confirmed fact: "three generations tapping our Michigan farm" may be used.
 - Never use "We'll show you how, bring you the gear, and be there for you" (sounds like we'll meet them in the woods).
+
+## Never crop products (Jim, Nov 14 2026)
+Every product photo (kits, bottles with gold caps, spiles, books, gift card) must show the WHOLE product on every slide, cover and pin. Use object-fit: contain (or a box sized to the photo), never object-fit: cover or a zoomed crop on a product image. Before scheduling, open every rendered slide and check that no product, bottle top or kit piece is cut off at any edge. Scenery photos (trees, snow, bark) may still be cropped.
+Known bad (already published, can't be swapped on Instagram): gift04 Ultimate cover (kit cut off), gift05 stocking stuffers cover (bottle tops cut off).

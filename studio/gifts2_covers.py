@@ -92,13 +92,13 @@ def g5():
     return rootdiv(SKY, inner)
 
 
-# 6 Sat Nov 21 - Pink spiles: pine block + product cut-out (flag badge cropped off)
+# 6 Sat Nov 21 - Pink spiles: pine block + FULL product photo (never crop products)
 def g6():
     inner = (
         top_tag("Stocking stuffer", "#F4A6C4", PINE)
         + f'<div style="position: absolute; left: 56px; top: 140px; width: 960px">' + headline("Pink taps?<br>Yes, really.", 140, SNOW, chk="title") + "</div>"
-        + f'<div data-chk="pic" style="position: absolute; left: 140px; right: 140px; top: 470px; height: 640px; border-radius: 40px; overflow: hidden; background: #fff">'
-          f'<img src="{data_uri(PR("pink_spiles.jpg"))}" alt="" style="position: absolute; left: 0; top: -210px; width: 1100px"></div>'
+        + f'<div data-chk="pic" style="position: absolute; left: 210px; top: 440px; width: 660px; height: 660px; border-radius: 40px; overflow: hidden; background: #fff">'
+          f'{photo(PR("pink_spiles.jpg"), "50% 50%", "; object-fit: contain")}</div>'
         + handle(SNOW) + logo_badge(bg=CR)
     )
     return rootdiv(PINE, inner)
@@ -117,6 +117,17 @@ def g7():
     return rootdiv(NAVY, inner)
 
 
+# Fix for Sun Nov 15 gift card post (gift07): old cover chopped the jars. Full gift card image, nothing cropped.
+def giftcard_fix():
+    inner = (
+        top_tag(GUIDE, NAVY, G)
+        + f'<div style="position: absolute; left: 56px; top: 140px; width: 960px">' + headline("Not sure which kit?<br>Let them pick.", 104, NAVY, chk="title") + "</div>"
+        + f'<div data-chk="pic" style="position: absolute; left: 90px; top: 420px; width: 900px; height: 696px; transform: rotate(-3deg)">{photo(PR("gift_card.jpg"), "50% 50%", "; object-fit: contain; mix-blend-mode: multiply")}</div>'
+        + handle(NAVY) + logo_badge(bg=CR)
+    )
+    return rootdiv(G, inner)
+
+
 COVERS = [g1, g2, g3, g4, g5, g6, g7]
 
 if __name__ == "__main__":
@@ -124,4 +135,5 @@ if __name__ == "__main__":
     os.makedirs(out, exist_ok=True)
     for i, fn in enumerate(COVERS, 1):
         open(os.path.join(out, f"G2-{i:02d}-cover.html"), "w").write(preview_html(f"Gift {i}", fn()))
+    open(os.path.join(out, "Gift07-1-fix.html"), "w").write(preview_html("Gift card", giftcard_fix()))
     print("built", len(COVERS))
