@@ -48,10 +48,10 @@ def stipules(s, cx, cy, fill, vein):
 # Black maple blade, drawn from its botany: usually 3 broad main lobes with long-pointed tips, shallow rounded
 # notches between them, very few teeth, small rounded basal lobes, a heart-shaped base and a long leaf stem.
 # Unit coordinates: (0,0) = where the stem joins the blade, y negative = up. Right half; the left is mirrored.
-HALF = [("Q", 0.10, 0.11, 0.30, 0.10), ("Q", 0.50, 0.09, 0.64, -0.03), ("Q", 0.60, -0.10, 0.63, -0.17),
-        ("Q", 0.76, -0.18, 0.88, -0.27), ("Q", 0.93, -0.40, 1.05, -0.55), ("Q", 0.90, -0.53, 0.72, -0.61),
-        ("Q", 0.38, -0.42, 0.35, -0.67), ("Q", 0.37, -0.78, 0.43, -0.85), ("Q", 0.31, -0.86, 0.22, -0.93),
-        ("Q", 0.07, -1.00, 0.0, -1.17)]
+HALF = [("Q", 0.12, 0.14, 0.34, 0.12), ("Q", 0.57, 0.10, 0.71, -0.04), ("Q", 0.70, -0.11, 0.75, -0.16),
+        ("Q", 0.87, -0.20, 0.95, -0.30), ("Q", 0.95, -0.41, 1.09, -0.56), ("Q", 0.93, -0.57, 0.81, -0.66),
+        ("Q", 0.71, -0.71, 0.62, -0.72), ("Q", 0.45, -0.57, 0.42, -0.77), ("Q", 0.42, -0.89, 0.47, -0.96),
+        ("Q", 0.33, -0.96, 0.23, -1.02), ("Q", 0.08, -1.06, 0.0, -1.22)]
 
 
 def blade_path(u, ox, oy):
@@ -65,17 +65,17 @@ def blade_path(u, ox, oy):
 
 
 def black_leaf(s, cx, cy, fill=LEAF, vein=VEIN, ring=None):
-    u = 0.88 * s
+    u = 0.84 * s
     ox, oy = cx, cy + 0.12 * s           # where the stem joins the blade
     bx, by = ox, oy + 0.50 * u           # where the stem meets the twig
     pt = lambda x, y: (ox + x * u, oy + y * u)
     line = lambda a, b_, w: (f'<path d="M{f(a[0])} {f(a[1])} L{f(b_[0])} {f(b_[1])}" stroke="{vein}" fill="none" '
                              f'style="stroke-width:{f(s * w)};stroke-linecap:round"></path>')
-    veins = [line(pt(0, 0), pt(0, -1.08), 0.016)]
+    veins = [line(pt(0, 0), pt(0, -1.12), 0.016)]
     for sg in (1, -1):
-        veins += [line(pt(0, 0), pt(sg * 0.95, -0.50), 0.014), line(pt(0, 0), pt(sg * 0.56, -0.01), 0.011),
-                  line(pt(0, -0.42), pt(sg * 0.22, -0.66), 0.008), line(pt(0, -0.66), pt(sg * 0.30, -0.82), 0.008),
-                  line(pt(sg * 0.42, -0.22), pt(sg * 0.58, -0.44), 0.008), line(pt(sg * 0.50, -0.265), pt(sg * 0.80, -0.26), 0.008)]
+        veins += [line(pt(0, 0), pt(sg * 0.99, -0.51), 0.014), line(pt(0, 0), pt(sg * 0.62, -0.02), 0.011),
+                  line(pt(0, -0.46), pt(sg * 0.26, -0.72), 0.008), line(pt(0, -0.70), pt(sg * 0.36, -0.90), 0.008),
+                  line(pt(sg * 0.45, -0.23), pt(sg * 0.66, -0.62), 0.008), line(pt(sg * 0.52, -0.27), pt(sg * 0.86, -0.27), 0.008)]
     twig = f'<rect x="{f(bx - s * 0.34)}" y="{f(by - s * 0.02)}" width="{f(s * 0.68)}" height="{f(s * 0.05)}" rx="{f(s * 0.025)}" fill="#6E5A4E"></rect>'
     stem = f'<path d="M{f(ox)} {f(oy)} L{f(bx)} {f(by)}" stroke="{vein}" fill="none" style="stroke-width:{f(s * 0.022)};stroke-linecap:round"></path>'
     stip = "".join(
