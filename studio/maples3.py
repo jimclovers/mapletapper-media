@@ -12,12 +12,14 @@ from closing import card
 from blackmaple01 import HALF as BLACK, YS
 
 M, CR, G, R = C["maroon"], C["cream"], C["gold"], C["red"]
-SUGAR = [("Q", 0.10, 0.06, 0.26, 0.06), ("Q", 0.46, 0.07, 0.72, 0.06), ("Q", 0.60, -0.08, 0.56, -0.20),
-         ("Q", 0.74, -0.22, 0.94, -0.30), ("Q", 0.92, -0.40, 1.10, -0.66), ("Q", 0.92, -0.68, 0.72, -0.76),
-         ("Q", 0.50, -0.50, 0.34, -0.82), ("Q", 0.33, -0.93, 0.43, -1.00), ("Q", 0.26, -1.00, 0.18, -1.08),
-         ("Q", 0.06, -1.12, 0.0, -1.30)]
-MIX = [("Q",) + tuple((a + b) / 2 for a, b in zip(s[1:], k[1:])) for s, k in zip(SUGAR, BLACK)]
-GREENS = {"sugar": "#4F8A3C", "mix": "#467A38", "black": "#3A6832"}
+# Sugar maple: 5 separate pointed lobes, deep rounded U notches, a few pointed teeth, nearly flat base.
+SUGAR = [("Q", 0.10, 0.04, 0.22, 0.02), ("Q", 0.44, 0.00, 0.68, 0.10), ("Q", 0.46, 0.00, 0.40, -0.16),
+         ("Q", 0.56, -0.20, 0.80, -0.16), ("Q", 0.80, -0.28, 0.84, -0.34), ("Q", 0.96, -0.36, 1.14, -0.56),
+         ("Q", 0.98, -0.58, 0.88, -0.66), ("Q", 0.90, -0.72, 0.84, -0.84), ("Q", 0.62, -0.62, 0.42, -0.46),
+         ("Q", 0.24, -0.40, 0.24, -0.74), ("Q", 0.24, -0.90, 0.40, -1.00), ("Q", 0.30, -1.00, 0.26, -1.06),
+         ("Q", 0.14, -1.12, 0.0, -1.34)]
+VT = {id(SUGAR): ((1.14, -0.56), (0.68, 0.10)), id(BLACK): ((1.06, -0.72), (0.76, -0.02))}
+GREENS = {"sugar": "#63A63F", "black": "#2F5A2B"}
 VEIN = "#1E3A1A"
 
 
@@ -31,10 +33,10 @@ def leaf(half, u, ox, oy, fill, ears=False, stem=0.75):
         d.append("Q%s %s" % (P(-c[1], c[2]), P(-ex, ey)))
     blade = f'<path d="{" ".join(d)} Z" fill="{fill}" stroke="{VEIN}" style="stroke-width:{f(u * 0.014)};stroke-linejoin:round"></path>'
     ln = lambda a, b, w: f'<path d="M{P(*a)} L{P(*b)}" stroke="{VEIN}" fill="none" style="stroke-width:{f(u * w)};stroke-linecap:round"></path>'
-    tip, lat, bas = half[-1], half[4], half[1]
+    tip = half[-1]; lat, bas = VT[id(half)]
     veins = ln((0, 0), (0, tip[4] * 0.92), 0.02)
     for sg in (1, -1):
-        veins += ln((0, 0), (sg * lat[3] * 0.92, lat[4] * 0.92), 0.017) + ln((0, 0), (sg * bas[3] * 0.82, bas[4] * 0.6), 0.013)
+        veins += ln((0, 0), (sg * lat[0] * 0.92, lat[1] * 0.92), 0.017) + ln((0, 0), (sg * bas[0] * 0.82, bas[1] * 0.7), 0.013)
     by = oy + stem * u
     stm = f'<path d="M{f(ox)} {f(oy)} L{f(ox)} {f(by)}" stroke="{VEIN}" fill="none" style="stroke-width:{f(u * 0.03)};stroke-linecap:round"></path>'
     ear = ""
@@ -49,13 +51,17 @@ def svg(w, h, inner, extra=""):
 
 
 def slide1():
-    row = (leaf(SUGAR, 150, 190, 340, GREENS["sugar"]) + leaf(MIX, 150, 540, 340, GREENS["mix"]) + leaf(BLACK, 150, 890, 340, GREENS["black"], ears=True))
-    labels = "".join(f'<div style="position: absolute; left: {x - 150}px; top: 1030px; width: 300px; text-align: center; font-family: {DISPLAY}; '
-                     f'font-weight: 800; font-size: 40px; color: {NAVY}">{t}</div>' for x, t in ((195, "Sugar"), (540, "In between"), (885, "Black")))
+    row = leaf(SUGAR, 205, 285, 400, GREENS["sugar"]) + leaf(BLACK, 205, 795, 400, GREENS["black"], ears=True)
+    def lab(x, name, l1, l2):
+        return (f'<div style="position: absolute; left: {x - 240}px; top: 1010px; width: 480px; text-align: center; color: {NAVY}">'
+                f'<div style="font-family: {DISPLAY}; font-weight: 800; font-size: 50px; line-height: 1">{name}</div>'
+                f'<div style="font-family: {DISPLAY}; font-weight: 600; font-size: 34px; line-height: 1.2; margin-top: 8px">{l1}<br>{l2}</div></div>')
     inner = (f'<div style="position: absolute; left: 56px; top: 60px">{tag("Leaf detective", NAVY, G, 30)}</div>'
-             f'<div style="position: absolute; left: 56px; top: 140px; width: 960px">' + headline("Sugar maple,<br>black maple,<br>or in between?", 104, NAVY, chk="title") + "</div>"
-             + svg(1080, 520, row, "; position: absolute; left: 0; top: 520px") + labels + handle(NAVY) + logo_badge(bg="#FFFFFF"))
-    return rootdiv(SKY, inner), "Sugar maple, black maple, or in between?"
+             f'<div style="position: absolute; left: 56px; top: 140px; width: 960px">' + headline("Sugar maple or<br>black maple?", 112, NAVY, chk="title") + "</div>"
+             + svg(1080, 620, row, "; position: absolute; left: 0; top: 400px")
+             + lab(285, "Sugar", "5 pointed lobes", "deep notches") + lab(795, "Black", "3 broad lobes", "shallow notches")
+             + handle(NAVY) + logo_badge(bg="#FFFFFF", size=120, bottom=36))
+    return rootdiv(SKY, inner), "Sugar maple or black maple?"
 
 
 def profile(n, kick, head, half, fill, ears, items, bg, note=None):
@@ -74,7 +80,7 @@ def profile(n, kick, head, half, fill, ears, items, bg, note=None):
 
 def slide2():
     return profile(2, "The classic", "Sugar maple", SUGAR, GREENS["sugar"], False,
-                   ["Usually 5 lobes", "Deep, rounded U-shaped notches", "Leaf lies flat", "Stem base is bare: no “ears”"], CR), "Sugar maple leaf"
+                   ["5 pointed lobes", "Deep, rounded U-shaped notches", "Leaf lies flat", "Stem base is bare: no “ears”"], CR), "Sugar maple leaf"
 
 
 def slide3():
@@ -83,8 +89,9 @@ def slide3():
 
 
 def slide4():
-    pic = (f'<div data-chk="pic" style="height: 400px; border-radius: 30px; background: {SNOW}; flex: none; position: relative; overflow: hidden">'
-           + svg(1000, 400, leaf(MIX, 140, 500, 255, GREENS["mix"], stem=0.6)) + "</div>")
+    pic = (f'<div data-chk="pic" style="height: 330px; border-radius: 30px; background: {SNOW}; flex: none; position: relative; overflow: hidden">'
+           + svg(1000, 330, leaf(SUGAR, 105, 300, 205, GREENS["sugar"], stem=0.6) + leaf(BLACK, 105, 700, 205, GREENS["black"], ears=True, stem=0.6)
+                 + f'<text x="500" y="200" text-anchor="middle" style="font-family: {DISPLAY}; font-weight: 800; font-size: 90px; fill: {M}">+</text>') + "</div>")
     cta = (f'<div data-chk="cta" style="background: {PINE}; color: {SNOW}; border-radius: 28px; padding: 22px 30px">'
            f'<div style="font-family: {TYPE}; font-size: 24px; letter-spacing: .06em; text-transform: uppercase; color: {G}">Your turn · comment below</div>'
            f'<div style="font-family: {DISPLAY}; font-weight: 800; font-size: 38px; line-height: 1.1; margin-top: 6px">Sugar, black or in between: which leaf is on your tree?</div></div>')
