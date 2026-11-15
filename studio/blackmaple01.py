@@ -45,13 +45,49 @@ def stipules(s, cx, cy, fill, vein):
     return "".join(out), (bx, by)
 
 
+# Black maple blade, drawn from its botany: usually 3 broad main lobes with long-pointed tips, shallow rounded
+# notches between them, very few teeth, small rounded basal lobes, a heart-shaped base and a long leaf stem.
+# Unit coordinates: (0,0) = where the stem joins the blade, y negative = up. Right half; the left is mirrored.
+HALF = [("Q", 0.10, 0.11, 0.30, 0.10), ("Q", 0.50, 0.09, 0.64, -0.03), ("Q", 0.60, -0.10, 0.63, -0.17),
+        ("Q", 0.76, -0.18, 0.88, -0.27), ("Q", 0.93, -0.40, 1.05, -0.55), ("Q", 0.90, -0.53, 0.72, -0.61),
+        ("Q", 0.38, -0.42, 0.35, -0.67), ("Q", 0.37, -0.78, 0.43, -0.85), ("Q", 0.31, -0.86, 0.22, -0.93),
+        ("Q", 0.07, -1.00, 0.0, -1.17)]
+
+
+def blade_path(u, ox, oy):
+    pt = lambda x, y: f"{f(ox + x * u)} {f(oy + y * u)}"
+    d = [f"M{pt(0, 0)}"] + [f"Q{pt(c[1], c[2])} {pt(c[3], c[4])}" for c in HALF]
+    ends = [(0.0, 0.0)] + [(c[3], c[4]) for c in HALF]
+    for i in range(len(HALF) - 1, -1, -1):
+        c = HALF[i]; ex, ey = ends[i]
+        d.append(f"Q{pt(-c[1], c[2])} {pt(-ex, ey)}")
+    return " ".join(d) + " Z"
+
+
 def black_leaf(s, cx, cy, fill=LEAF, vein=VEIN, ring=None):
-    st, (bx, by) = stipules(s, cx, cy, fill, vein)
+    u = 0.88 * s
+    ox, oy = cx, cy + 0.12 * s           # where the stem joins the blade
+    bx, by = ox, oy + 0.50 * u           # where the stem meets the twig
+    pt = lambda x, y: (ox + x * u, oy + y * u)
+    line = lambda a, b_, w: (f'<path d="M{f(a[0])} {f(a[1])} L{f(b_[0])} {f(b_[1])}" stroke="{vein}" fill="none" '
+                             f'style="stroke-width:{f(s * w)};stroke-linecap:round"></path>')
+    veins = [line(pt(0, 0), pt(0, -1.08), 0.016)]
+    for sg in (1, -1):
+        veins += [line(pt(0, 0), pt(sg * 0.95, -0.50), 0.014), line(pt(0, 0), pt(sg * 0.56, -0.01), 0.011),
+                  line(pt(0, -0.42), pt(sg * 0.22, -0.66), 0.008), line(pt(0, -0.66), pt(sg * 0.30, -0.82), 0.008),
+                  line(pt(sg * 0.42, -0.22), pt(sg * 0.58, -0.44), 0.008), line(pt(sg * 0.50, -0.265), pt(sg * 0.80, -0.26), 0.008)]
+    twig = f'<rect x="{f(bx - s * 0.34)}" y="{f(by - s * 0.02)}" width="{f(s * 0.68)}" height="{f(s * 0.05)}" rx="{f(s * 0.025)}" fill="#6E5A4E"></rect>'
+    stem = f'<path d="M{f(ox)} {f(oy)} L{f(bx)} {f(by)}" stroke="{vein}" fill="none" style="stroke-width:{f(s * 0.022)};stroke-linecap:round"></path>'
+    stip = "".join(
+        f'<path d="M0 0 C{f(s*0.06)} {f(-s*0.04)} {f(s*0.06)} {f(-s*0.16)} 0 {f(-s*0.20)} C{f(-s*0.06)} {f(-s*0.16)} {f(-s*0.06)} {f(-s*0.04)} 0 0 Z" '
+        f'fill="{fill}" stroke="{vein}" style="stroke-width:{f(s * 0.012)}" transform="translate({f(bx + sg * s * 0.012)} {f(by - s * 0.015)}) rotate({50 * sg})"></path>'
+        for sg in (1, -1))
+    blade = f'<path d="{blade_path(u, ox, oy)}" fill="{fill}" stroke="{vein}" style="stroke-width:{f(s * 0.012)};stroke-linejoin:round"></path>'
     ringsvg = ""
     if ring:
         ringsvg = (f'<circle cx="{f(bx)}" cy="{f(by - s * 0.05)}" r="{f(s * 0.24)}" fill="none" stroke="{ring}" '
                    f'style="stroke-width:{f(s * 0.03)};stroke-dasharray:{f(s * 0.06)} {f(s * 0.04)}"></circle>')
-    return st + leaf_svg(BLACK, s, cx, cy, fill, vein) + ringsvg, (bx, by)
+    return twig + stem + stip + blade + "".join(veins) + ringsvg, (bx, by)
 
 
 def svg(w, h, inner, extra=""):
@@ -80,7 +116,7 @@ def clue(b, main, note, color=C["maroon"]):
 def slide1():
     leaf, (bx, by) = black_leaf(390, 540, 560, fill=C["gold"], vein="#8A5A12", ring=SNOW)
     art = svg(1080, 1350, leaf, "; position: absolute; left: 0; top: 270px")
-    label = (f'<div data-chk="label" style="position: absolute; left: {int(bx) + 130}px; top: {int(by) + 270 + 40}px; font-family: {TYPE}; '
+    label = (f'<div data-chk="label" style="position: absolute; left: {int(bx) + 130}px; top: {int(by) + 270 - 50}px; font-family: {TYPE}; '
              f'font-size: 30px; letter-spacing: .05em; text-transform: uppercase; color: {SNOW}; line-height: 1.2">'
              f'↖ Look for the<br>tiny “ears”</div>')
     inner = (
@@ -108,7 +144,7 @@ def slide2():
     fuzz = "".join(f'<path d="M{x} {y} l3 -6" stroke="{LEAF_DK}" style="stroke-width:2;stroke-linecap:round"></path>'
                    for x, y in [(22, 36), (32, 30), (44, 28), (54, 32), (26, 48), (38, 44), (50, 44), (60, 46), (32, 58), (46, 56)])
     fuzzy = svg(80, 80, f'<ellipse cx="40" cy="44" rx="32" ry="24" fill="#B7CFA4"></ellipse>{fuzz}')
-    big, _ = black_leaf(205, 330, 262, ring=C["red"])
+    big, _ = black_leaf(215, 330, 235, ring=C["red"])
     pic = (f'<div data-chk="pic" style="position: relative; overflow: hidden; height: 520px; border-radius: 30px; background: {SNOW}; flex: none">'
            + svg(1000, 520, big, "; position: absolute; left: -30px; top: -10px")
            + f'<div style="position: absolute; left: 470px; top: 330px; width: 420px; font-family: {DISPLAY}; font-weight: 700; font-size: 34px; '
@@ -167,7 +203,7 @@ def slide4():
 
 
 def slide5():
-    leaf, _ = black_leaf(150, 120, 120)
+    leaf, _ = black_leaf(118, 120, 112)
     facts = (f'<div data-chk="facts" style="display: flex; flex-direction: column; gap: 24px">'
              + body("<b>A Midwest tree.</b> It’s most common from Ohio and Michigan west to Iowa and Minnesota.", 38, C["maroon"], "f1")
              + body("<b>Loves rich, moist soil,</b> even along rivers, where sugar maple sticks to higher ground.", 38, C["maroon"], "f2")
