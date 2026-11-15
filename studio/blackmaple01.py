@@ -54,8 +54,11 @@ HALF = [("Q", 0.12, 0.14, 0.34, 0.12), ("Q", 0.57, 0.10, 0.71, -0.04), ("Q", 0.7
         ("Q", 0.33, -0.96, 0.23, -1.02), ("Q", 0.08, -1.06, 0.0, -1.22)]
 
 
+YS = 1.4   # blade is about as tall as it is wide (real leaves), not squat
+
+
 def blade_path(u, ox, oy):
-    pt = lambda x, y: f"{f(ox + x * u)} {f(oy + y * u)}"
+    pt = lambda x, y: f"{f(ox + x * u)} {f(oy + y * u * YS)}"
     d = [f"M{pt(0, 0)}"] + [f"Q{pt(c[1], c[2])} {pt(c[3], c[4])}" for c in HALF]
     ends = [(0.0, 0.0)] + [(c[3], c[4]) for c in HALF]
     for i in range(len(HALF) - 1, -1, -1):
@@ -65,10 +68,10 @@ def blade_path(u, ox, oy):
 
 
 def black_leaf(s, cx, cy, fill=LEAF, vein=VEIN, ring=None):
-    u = 0.84 * s
-    ox, oy = cx, cy + 0.12 * s           # where the stem joins the blade
-    bx, by = ox, oy + 0.50 * u           # where the stem meets the twig
-    pt = lambda x, y: (ox + x * u, oy + y * u)
+    u = 0.62 * s
+    ox, oy = cx, cy + 0.35 * s           # where the stem joins the blade
+    bx, by = ox, oy + 0.42 * s           # where the stem meets the twig
+    pt = lambda x, y: (ox + x * u, oy + y * u * YS)
     line = lambda a, b_, w: (f'<path d="M{f(a[0])} {f(a[1])} L{f(b_[0])} {f(b_[1])}" stroke="{vein}" fill="none" '
                              f'style="stroke-width:{f(s * w)};stroke-linecap:round"></path>')
     veins = [line(pt(0, 0), pt(0, -1.12), 0.016)]
