@@ -108,7 +108,7 @@ def slide2():
     fuzz = "".join(f'<path d="M{x} {y} l3 -6" stroke="{LEAF_DK}" style="stroke-width:2;stroke-linecap:round"></path>'
                    for x, y in [(22, 36), (32, 30), (44, 28), (54, 32), (26, 48), (38, 44), (50, 44), (60, 46), (32, 58), (46, 56)])
     fuzzy = svg(80, 80, f'<ellipse cx="40" cy="44" rx="32" ry="24" fill="#B7CFA4"></ellipse>{fuzz}')
-    big, _ = black_leaf(250, 330, 250, ring=C["red"])
+    big, _ = black_leaf(205, 330, 262, ring=C["red"])
     pic = (f'<div data-chk="pic" style="position: relative; overflow: hidden; height: 520px; border-radius: 30px; background: {SNOW}; flex: none">'
            + svg(1000, 520, big, "; position: absolute; left: -30px; top: -10px")
            + f'<div style="position: absolute; left: 470px; top: 330px; width: 420px; font-family: {DISPLAY}; font-weight: 700; font-size: 34px; '
