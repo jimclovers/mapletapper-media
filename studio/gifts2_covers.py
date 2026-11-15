@@ -32,7 +32,7 @@ def top_tag(text, bg, fg):
 def g1():
     inner = (
         top_tag(GUIDE, M, CR)
-        + f'<div style="position: absolute; left: 56px; top: 140px; width: 960px">' + headline("Room for 20 trees", 120, M, chk="title") + "</div>"
+        + f'<div style="position: absolute; left: 56px; top: 140px; width: 960px">' + headline("Room for 20 trees", 104, M, chk="title", extra="; white-space: nowrap") + "</div>"
         + f'<div data-chk="pic" style="position: absolute; left: 90px; right: 90px; top: 300px; height: 820px; border-radius: 30px; overflow: hidden; background: #fff; '
           f'box-shadow: 0 14px 40px rgba(0,0,0,.12)">{photo(PR("deluxe_flatlay.jpg"), "50% 50%", "; object-fit: contain")}</div>'
         + handle(M) + logo_badge(bg=CR)
@@ -109,9 +109,9 @@ def g7():
     inner = (
         top_tag("Thanksgiving host gift", G, NAVY)
         + f'<div style="position: absolute; left: 56px; top: 140px; width: 960px">' + headline("Bring this,<br>not another pie", 120, SNOW, chk="title") + "</div>"
-        + f'<div data-chk="pic" style="position: absolute; left: 290px; top: 470px; width: 500px; height: 590px; transform: rotate(-3deg); '
+        + f'<div data-chk="pic" style="position: absolute; left: 290px; top: 470px; width: 500px; height: 604px; transform: rotate(-3deg); '
           f'border: 14px solid #fff; box-shadow: 0 14px 40px rgba(0,0,0,.35); overflow: hidden">'
-          f'<img src="{data_uri(PR("guide_book.jpg"))}" alt="" style="position: absolute; left: -110px; top: -8px; width: 720px"></div>'
+          f'<img src="{data_uri(PR("guide_book.jpg"))}" alt="" style="position: absolute; left: -110px; top: -6px; width: 720px"></div>'
         + handle(SNOW) + logo_badge(bg=CR)
     )
     return rootdiv(NAVY, inner)
